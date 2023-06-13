@@ -32,7 +32,14 @@ const UserInfo = ({ authorInfo }: IUserProps) => {
   return (
     <div className="author-info-content">
       <div className="author-avatar">
-        <img src={user?.picture || Image.Avatar} alt={user?.displayName} />
+        <img
+          src={user?.picture || Image.Avatar}
+          alt={user?.displayName}
+          onError={(e: any) => {
+            e.target['onerror'] = null;
+            e.target['src'] = Image.Avatar;
+          }}
+        />
       </div>
       <div className="author-info">
         <h2 className="author-name">{user?.displayName}</h2>
