@@ -12,6 +12,7 @@ import {
 import { Input } from '../../shared/components/partials';
 import { Button } from '../../shared/components/partials';
 import Image from '../../../assets/images';
+import { environment } from '../../../config';
 
 const authService = new AuthService();
 const Login = () => {
@@ -92,6 +93,10 @@ const Login = () => {
               isLoading={isRequestingAPI}
             />
           </div>
+          <a href={`${environment.apiBaseUrl}/auth/google`} className="login-with-google-btn">
+            <i className="fa-brands fa-google"></i>
+            Sign in with Google
+          </a>
         </form>
         <div className="tips txt-center">
           <Link to="/" className="tip-link">
