@@ -34,7 +34,7 @@ const UserUpdateProfile = () => {
 
   useEffect(() => {
     if (Object.keys(dataUser).length) {
-      const dobFormat = dataUser?.dob.split('/').reverse().join('-');
+      const dobFormat = dataUser.dob ? dataUser?.dob.split('/').reverse().join('-') : '';
       setValue('picture', dataUser?.picture);
       setValue('firstName', dataUser?.firstName);
       setValue('lastName', dataUser?.lastName);
