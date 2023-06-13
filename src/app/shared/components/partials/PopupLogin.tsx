@@ -13,6 +13,7 @@ import {
   emailValidator,
   passwordValidator,
 } from '../../validations/form.validation';
+import { environment } from '../../../../config';
 
 const authService = new AuthService();
 const PopUpLogin = () => {
@@ -85,6 +86,10 @@ const PopUpLogin = () => {
           isLoading={isRequestingAPI}
         />
       </div>
+      <a href={`${environment.apiBaseUrl}/auth/google`} className="login-with-google-btn">
+        <i className="fa-brands fa-google"></i>
+        Sign in with Google
+      </a>
       <Link to="/" className="tip-link">
         Forgot your password?
       </Link>
