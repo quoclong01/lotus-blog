@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../../app.reducers';
 import { clearUserInfo } from '../../../pages/user/user.actions';
 import { AuthService } from '../../../core/serivces/auth.service';
+import { getData } from '../../../core/helpers/localstorage';
 import withAuthChecking from '../hoc/withAuthChecking';
 import Image from '../../../../assets/images';
 
@@ -45,19 +46,27 @@ export const Header = () => {
   };
 
   const handleSignOut = () => {
-    if (!isRequestingAPI) {
-      setIsRequestingAPI(true);
-      authService
-        .signOut()
-        .then((res: any) => {
-          setIsRequestingAPI(false);
-          localStorage.removeItem('token');
-          dispatch(clearUserInfo());
-          navigate('/');
-        })
-        .catch((error: any) => {
-          setIsRequestingAPI(false);
-        });
+    const providerType = getData('providerType', '');
+    if (providerType !== 'email') {
+      localStorage.removeItem('providerType');
+      localStorage.removeItem('token');
+      dispatch(clearUserInfo());
+      navigate('/');
+    } else {
+      if (!isRequestingAPI) {
+        setIsRequestingAPI(true);
+        authService
+          .signOut()
+          .then((res: any) => {
+            setIsRequestingAPI(false);
+            localStorage.removeItem('token');
+            dispatch(clearUserInfo());
+            navigate('/');
+          })
+          .catch((error: any) => {
+            setIsRequestingAPI(false);
+          });
+      }
     }
   };
 
