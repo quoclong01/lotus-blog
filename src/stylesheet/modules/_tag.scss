@@ -1,0 +1,26 @@
+.tag {
+  @include flexbox;
+  @include border-radius(20px);
+  background-color: map-get($color, gray-6);
+  @include transition(0.2s linear);
+  &-link {
+    padding: 4px 8px;
+    @include pxRem(font-size, 12);
+    font-weight: 400;
+    color: map-get($color, gray-4);
+  }
+  &:hover {
+    background-color: map-get($color, primary);
+    .tag-link {
+      color: map-get($color, white);
+    }
+  }
+
+  &-article {
+    @include flexbox;
+    @include pxRem(margin-bottom, 24);
+    .tag {
+      @include pxRem(margin-right, 8);
+    }
+  }
+}

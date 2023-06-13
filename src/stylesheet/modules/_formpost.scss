@@ -1,0 +1,154 @@
+.form-post {
+  &-item {
+    @include flexbox;
+    @include pxRem(margin-bottom, 12);
+    flex-direction: column;
+  }
+  &-header {
+    @include pxRem(margin-bottom, 24);
+    @include flexbox;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-file {
+    @include flexbox;
+    @include pxRem(max-width, 240);
+    flex-direction: column;
+    width: 100%;
+  }
+  &-image {
+    @include pxRem(margin-bottom, 24);
+    @include pxRem(height, 250);
+    img {
+      @include border-radius(8px);
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border: 2px dashed map-get($color, gray-7);
+    }
+  }
+  label[for='cover'] {
+    @include pxRem(padding, 8 0);
+    @include border-radius(50px);
+    flex: 1 1 auto;
+    text-align: center;
+    color: map-get($color, white);
+    background-color: map-get($color, primary);
+    cursor: pointer;
+  }
+  input[type='file'] {
+    display: none;
+  }
+  label {
+    @include pxRem(margin-bottom, 4);
+    color: map-get($color, gray-4);
+    font-weight: 400;
+  }
+  input[type='text'],
+  textarea {
+    @include pxRem(padding, 12 16);
+    @include pxRem(font-size, 16);
+    @include border-radius(4px);
+    font-family: $font-primary;
+    color: map-get($color, text);
+    border: 1px solid map-get($color, gray-7);
+    outline: 0;
+    &:focus {
+      border: 1px solid map-get($color, primary);
+    }
+  }
+  input[type='checkbox'] {
+    @include pxRem(margin-left, 8);
+    -webkit-appearance: none;
+    &:checked {
+      & ~ .check::after {
+        background-color: map-get($color, primary);
+        transform: translateX(30px);
+      }
+      & ~ .check {
+        background-color: map-get($color, gray-6);
+      }
+    }
+  }
+  label[for='status'] {
+    @include flexbox;
+    align-items: center;
+  }
+  .check {
+    @include pxRem(width, 60);
+    @include pxRem(height, 30);
+    @include border-radius(30px);
+    @include transition(ease-in 0.3s);
+    position: relative;
+    display: block;
+    background-color: map-get($color, primary);
+    cursor: pointer;
+    &::after {
+      @include pxRem(width, 26);
+      @include pxRem(height, 26);
+      @include border-radius(50%);
+      @include transition(ease-in 0.3s);
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      background-color: map-get($color, gray-6);
+    }
+  }
+  &-footer {
+    @include pxRem(margin-top, 40);
+    @include flexbox;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &-btn {
+    @include flexbox;
+    justify-content: center;
+    @include pxRem(max-width, 160);
+    width: 100%;
+    &:hover {
+      background-color: map-get($color, yellow-1);
+    }
+  }
+  &-error {
+    input[type='text']:focus,
+    textarea:focus {
+      border: 1px solid map-get($color, yellow-1);
+    }
+    input[type='text'],
+    textarea {
+      border: 1px solid map-get($color, yellow-1);
+    }
+    span {
+      @include pxRem(font-size, 14);
+      @include pxRem(margin-top, 4);
+      color: map-get($color, red-1);
+      font-weight: 500;
+    }
+    .tox-tinymce {
+      border: 1px solid map-get($color, red-2) !important;
+    }
+  }
+}
+.tox-notifications-container {
+  display: none !important;
+}
+
+.tox-tinymce {
+  border-radius: 4px !important;
+  border: 1px solid map-get($color, gray-7) !important;
+}
+
+.rti--container {
+  --rti-main: #ffc017 !important;
+  --rti-border: #9ea0a8 !important;
+  padding: 4px 16px !important;
+}
+
+.rti--input {
+  border: none !important;
+}
+
+.go2761622576:focus-within {
+  box-shadow: var(--rti-main) 0px 0px 0px 0px !important;
+}

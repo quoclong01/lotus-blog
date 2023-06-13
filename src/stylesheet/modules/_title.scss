@@ -1,0 +1,6 @@
+.section {
+  &-title {
+    @include pxRem(font-size, 32);
+    @include pxRem(margin-bottom, 12);
+  }
+}

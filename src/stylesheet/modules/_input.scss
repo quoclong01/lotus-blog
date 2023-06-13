@@ -1,0 +1,117 @@
+.input {
+  &-group {
+    position: relative;
+    height: 46px;
+  }
+}
+
+.form {
+  @include flexbox;
+  @include flex-direction(column);
+  &-wrapper {
+    @include flexbox;
+    @include flex-wrap(wrap);
+    margin-bottom: 18px;
+  }
+
+  &-group {
+    position: relative;
+    width: 43%;
+    margin-bottom: 24px;
+    margin-right: 45px;
+  }
+
+  &-error {
+    .form-control:focus {
+      border-color: map-get($color, red-2);
+    }
+    span {
+      @include pxRem(font-size, 12);
+      @include pxRem(padding, 2 12);
+      @include border-radius(4px);
+      position: relative;
+      display: block;
+      margin-top: 5px;
+      color: map-get($color, red-1);
+      background-color: map-get($color, pink-1);
+      &::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 20px;
+        border-bottom: 5px solid map-get($color, pink-1);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+      }
+    }
+  }
+
+  &-image {
+    @include flexbox;
+    align-items: center;
+    @include flex-direction(column);
+  }
+
+  &-control {
+    @include border-radius(5px);
+    width: 100%;
+    height: 100%;
+    font-family: $font-primary;
+    font-size: map-get($font-size, normal);
+    border: 1px solid map-get($color, stroke);
+    padding: 8px 15px;
+    outline: none;
+    
+    &::placeholder {
+      color: map-get($color, disable);
+      font-size: map-get($font-size, normal);
+      font-weight: 400;
+    }
+
+    &:focus {
+      border-color: map-get($color, primary);
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+  }
+
+  &-gender {
+    color: map-get($color, text);
+    font-size: map-get($font-size, normal);
+    font-weight: 400;
+  }
+  &-btn {
+    @include flexbox;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    @include pxRem(margin-bottom, 12);
+    .loading-container {
+      margin-left: 12px;
+    }
+  }
+}
+
+
+.form-control:focus ~ .label {
+  opacity: 1;
+}
+
+.form-control:not(:placeholder-shown) + .label {
+  opacity: 1;
+}
+
+.label {
+  position: absolute;
+  top: -16px;
+  left: 15px;
+  background-color: map-get($color, white);
+  color: map-get($color, gray-7);
+  @include pxRem(font-size, 13);
+  font-weight: 400;
+  padding: 4px;
+  @include transition(ease-in-out 0.5s);
+  opacity: 0;
+}

@@ -1,0 +1,31 @@
+.tab {
+  &-item {
+    @include pxRem(margin-bottom, 4);
+    @include pxRem(padding, 12 20);
+  }
+  &-user {
+    @include flexbox;
+    align-items: center;
+    color: map-get($color, gray-3);
+    font-weight: 400;
+    cursor: pointer;
+    i {
+      @include pxRem(font-size, 16);
+      @include pxRem(margin-right, 4);
+      color: map-get($color, gray-3);
+    }
+    &-list {
+      @include pxRem(margin-right, 24);
+    }
+  }
+  &-active {
+    border-right: 6px solid map-get($color, primary);
+    i {
+      color: map-get($color, text);
+    }
+    .tab-user-title {
+      color: map-get($color, text);
+      font-weight: 600;
+    }
+  }
+}

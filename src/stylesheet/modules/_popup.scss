@@ -1,0 +1,63 @@
+.popup-login {
+  @include flexbox;
+  @include pxRem(padding, 40 28);
+  @include border-radius(10px);
+  @include pxRem(max-width, 564);
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: map-get($color, white);
+  animation: float-in-right 0.3s ease-in-out;
+  &-header {
+    @include pxRem(margin-bottom, 50);
+    @include flexbox;
+    flex-direction: column;
+    align-items: center;
+  }
+  &-title {
+    @include pxRem(font-size, 28);
+    @include pxRem(margin-bottom, 16);
+  }
+  &-image {
+    img {
+      transform: scale(1.5);
+    }
+  }
+  .form {
+    &-group {
+      @include pxRem(margin, 0 auto 24);
+      width: 100%;
+    }
+    &-btn {
+      width: 100%;
+    }
+    &-title {
+      &::after {
+        width: 100%;
+      }
+    }
+    &-wrapper {
+      width: 100%;
+    }
+  }
+  &-btn {
+    @include pxRem(margin-bottom, 4);
+    @include flexbox;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  &-active {
+    opacity: 0;
+    visibility: visible;
+  }
+}
+
+@keyframes float-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

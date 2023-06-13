@@ -1,0 +1,6 @@
+.main {
+  &-content {
+    max-width: 50%;
+    @include pxRem(margin, 40 auto);
+  }
+}

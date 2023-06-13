@@ -1,0 +1,33 @@
+.page-error {
+  @include flexbox;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  .error {
+    @include pxRem(max-width, 600);
+    @include flexbox;
+    @include flex-direction(column);
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    &-image {
+      @include pxRem(width, 472);
+      @include pxRem(height, 436);
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    &-logo {
+      @include pxRem(margin-bottom, 42);
+    }
+    &-title {
+      @include pxRem(font-size, 28);
+      @include pxRem(margin-bottom, 60);
+      font-weight: 700;
+      color: map-get($color, text);
+    }
+  }
+}

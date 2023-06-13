@@ -1,0 +1,87 @@
+.loading {
+  &-container {
+    @extend %flex-centered;
+    background-color: map-get($color, white);
+    .spinner {
+      @extend %flex-centered;
+      @include border-radius(50%);
+      height: 3rem;
+      width: 3rem;
+      border: 8px solid map-get($color, primary);
+      border-left: 8px solid map-get($color, white);
+      animation: spin infinite 1.5s linear;
+      &-text {
+        position: absolute;
+        @include pxRem(font-size, 14);
+        color: map-get($color, text);
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+    }
+  }
+  &-small {
+    position: absolute;
+    top: 50%;
+    right: 90px;
+    transform: translateY(-50%);
+    .spinner {
+      height: 1.8rem;
+      width: 1.8rem;
+      border: 5px solid map-get($color, primary);
+      border-left: 5px solid map-get($color, white);
+    }
+    &-login {
+      right: -40px;
+    }
+  }
+
+  &-user {
+    @include pxRem(margin-top, 36);
+  }
+}
+
+/* Bouncing balls */
+.bounce {
+  @include flexbox;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-left: 6px;
+  width: 36px;
+  height: 14px;
+  div {
+    @include border-radius(50%);
+    width: 6px;
+    height: 6px;
+    background: map-get($color, white);
+    animation: bouncing 0.5s cubic-bezier(0.19, 0.57, 0.3, 0.98) infinite
+      alternate;
+    &:nth-child(2) {
+      @include opacity(0.8);
+      animation-delay: 0.1s;
+    }
+    &:nth-child(3) {
+      @include opacity(0.6);
+      animation-delay: 0.2s;
+    }
+    &:nth-child(4) {
+      @include opacity(0.4);
+      animation-delay: 0.3s;
+    }
+  }
+}
+
+@keyframes bouncing {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

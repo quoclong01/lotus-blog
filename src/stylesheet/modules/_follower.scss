@@ -1,0 +1,49 @@
+.section {
+  &-follower {
+    @include pxRem(padding-left, 30);
+    .follower {
+      @include pxRem(margin-bottom, 16);
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &-title {
+        @include pxRem(margin-bottom, 12);
+        text-transform: capitalize;
+      }
+      &-list {
+        @include flexbox;
+        @include flex-direction(column);
+        @include pxRem(padding-top, 20);
+        @include pxRem(max-height, 300);
+        overflow-y: scroll;
+      }
+      &-item {
+        @include flexbox;
+        align-items: center;
+      }
+      &-image {
+        @include pxRem(width, 48);
+        @include pxRem(height, 48);
+        @include pxRem(margin-right, 12);
+        img {
+          @include border-radius(30px);
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      &-info {
+        @include pxRem(font-size, 14);
+        text-align: left;
+      }
+      &-username {
+        color: map-get($color, text);
+        font-weight: 500;
+        line-height: 1;
+      }
+      &-name {
+        color: map-get($color, gray-3);
+      }
+    }
+  }
+}

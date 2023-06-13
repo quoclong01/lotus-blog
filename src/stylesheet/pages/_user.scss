@@ -1,0 +1,157 @@
+.section {
+  &-user-post {
+    max-width: 50%;
+    @include pxRem(margin, 40 auto);
+  }
+  &-update {
+    @include pxRem(padding, 40 0);
+  }
+}
+
+.author {
+  &-info-content {
+    @include flexbox;
+    align-items: center;
+    @include pxRem(margin-bottom, 32);
+  }
+
+  &-avatar {
+    @include pxRem(margin-right, 30);
+    img {
+      @include pxRem(width, 100);
+      @include pxRem(height, 100);
+      border-radius: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &-list {
+    @include flexbox;
+    @include pxRem(margin-bottom, 12);
+  }
+
+  &-item {
+    @include pxRem(margin-right, 30);
+    @include pxRem(font-size, 20);
+    &:nth-child(2),
+    &:nth-child(3) {
+      cursor: pointer;
+    }
+  }
+}
+
+.update {
+  &-user {
+    &-title {
+      @include pxRem(font-size, 32);
+      @include pxRem(margin-bottom, 24);
+    }
+  }
+  &-pass {
+    &-title {
+      @include pxRem(font-size, 32);
+      @include pxRem(margin-bottom, 24);
+    }
+  }
+  &-avatar {
+    @include pxRem(width, 128);
+    @include pxRem(height, 128);
+    @include pxRem(margin-bottom, 24);
+    position: relative;
+    &-image {
+      height: 100%;
+      width: 100%;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+  &-file {
+    display: none;
+    &-label {
+      @include flexbox;
+      @include pxRem(right, 12);
+      @include pxRem(bottom, 0);
+      @include pxRem(padding, 4);
+      @include pxRem(width, 24);
+      @include pxRem(height, 24);
+      @include border-radius(20px);
+      position: absolute;
+      align-items: center;
+      justify-content: center;
+      background-color: map-get($color, white);
+      cursor: pointer;
+    }
+  }
+  &-gender {
+    @include flexbox;
+    @include pxRem(margin-bottom, 24);
+    align-items: center;
+    &-label {
+      @include pxRem(padding-left, 36);
+      @include pxRem(margin-right, 12);
+      position: relative;
+    }
+    input[type='radio'] {
+      position: absolute;
+      opacity: 0;
+      &:checked ~ .checkmark {
+        background: map-get($color, primary);
+      }
+      &:checked ~ .checkmark:after {
+        display: block;
+      }
+    }
+    .checkmark {
+      @include pxRem(width, 24);
+      @include pxRem(height, 24);
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: map-get($color, gray-6);
+      border-radius: 50%;
+      cursor: pointer;
+      &:after {
+        content: '';
+        position: absolute;
+        display: none;
+      }
+      &:after {
+        @include pxRem(width, 8);
+        @include pxRem(height, 8);
+        @include border-radius(10px);
+        top: 50%;
+        left: 50%;
+        background-color: map-get($color, white);
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+  }
+  &-btn {
+    @include flexbox;
+    @include pxRem(max-width, 200);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.message {
+  &-post {
+    @include pxRem(font-size, 20);
+  }
+  &-name {
+    font-weight: 600;
+  }
+  &-link {
+    @include pxRem(margin, 0 8);
+    color: map-get($color, primary);
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

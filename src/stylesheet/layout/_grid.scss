@@ -1,0 +1,24 @@
+$grid-col: 12;
+
+.container {
+  max-width: 1260px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.row {
+  @include flexbox;
+  @include flex-wrap(wrap);
+  margin: 0 -10px;
+  & > [class*='col-'] {
+    flex: 0 0 auto;
+    padding: 0 10px;
+  }
+}
+
+@for $i from 1 through $grid-col {
+  .col-#{$i} {
+    width: 100 / ($grid-col / $i) * 1%;
+  }
+}

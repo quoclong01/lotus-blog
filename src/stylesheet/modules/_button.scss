@@ -1,0 +1,85 @@
+.btn {
+  @include pxRem(padding, 10px 14px);
+  @include pxRem(font-size, 14px);
+  @include border-radius(100px);
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: $font-primary;
+  &-secondary {
+    color: map-get($color, white);
+    background-color: map-get($color, text);
+  }
+
+  &-primary {
+    color: map-get($color, white);
+    background-color: map-get($color, primary);
+    &:hover {
+      background-color: map-get($color, yellow-1);
+    }
+    &:disabled {
+      background-color: map-get($color, primary);
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &-auth {
+    @include flexbox;
+    @include border-radius(5px);
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    width: 100%;
+    font-size: map-get($font-size, normal);
+    font-weight: 600;
+    font-family: $font-primary;
+  }
+  &-comment {
+    @include flexbox;
+    @include pxRem(margin-top, 8);
+  }
+  &-follow {
+    @include flexbox;
+  }
+  &-action {
+    @include pxRem(width, 146);
+    @include pxRem(height, 40);
+    @include pxRem(border-radius, 4);
+    @include pxRem(margin-left, 16);
+    text-transform: capitalize;
+  }
+  &-danger {
+    background-color: map-get($color, red-2);
+    color: map-get($color, white);
+  }
+  &-bookmark {
+    @include pxRem(font-size, 18);
+    cursor: pointer;
+    background-color: transparent;
+    &-active {
+      color: map-get($color, primary);
+    }
+  }
+  &-restore {
+    @include pxRem(font-size, 18);
+    background-color: transparent;
+    cursor: pointer;
+    &:hover {
+      color: map-get($color, primary);
+    }
+  }
+}
+
+.fa {
+  &-lock {
+    color: map-get($color, text);
+    @include pxRem(margin-right, 6);
+  }
+
+  &-unlock {
+    color: map-get($color, primary);
+    @include pxRem(margin-right, 6);
+  }
+}

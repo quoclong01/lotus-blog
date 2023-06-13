@@ -1,0 +1,109 @@
+.page {
+  &-auth {
+    @include flexbox;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+ 
+  &-content {
+    @include flexbox;
+    align-items: center;
+    justify-content: center;
+    @include pxRem(max-width, 1218);
+    width: 100%;
+    @include pxRem(min-height, 650);
+    @include pxRem(padding, 25 30);
+    @include box-shadow(0px 10px 10px rgba(0, 0, 0, 0.25));
+    @include border-radius(20px);
+  }
+ 
+  &-link {
+    @include flexbox;
+    @include flex-direction(column);
+    justify-content: space-between;
+    align-items: center;
+    &-signup {
+      @include pxRem(min-height, 510);
+    }
+  }
+}
+
+.form {
+  &-signin {
+    @include pxRem(max-width, 400);
+    width: 100%;
+    .form-title {
+      &::after {
+        @include pxRem(width, 58);
+      }
+    }
+    .form-group {
+      @include pxRem(max-width, 400);
+      width: 100%;
+      margin-right: 0;
+    }
+    .btn-auth {
+      margin: 0;
+    }
+  }
+
+  &-title {
+    position: relative;
+    @include pxRem(font-size, 28);
+    font-weight: 700;
+    @include pxRem(margin-bottom, 53);
+
+    &::after {
+      content: "";
+      position: absolute;
+      @include pxRem(top, 47);
+      left: 0;
+      @include pxRem(width, 160);
+      @include pxRem(height, 7);
+      background-color: map-get($color, primary);
+    }
+  }
+}  
+
+.tip {
+  &-text {
+    @include pxRem(font-size, 14);
+    font-weight: 400;
+    text-align: center;
+    @include pxRem(margin-bottom, 36);
+  }
+  
+  &-link {
+    color: map-get($color, primary);
+    @include pxRem(font-size, 14);
+    text-align: center;
+  }
+
+  &-text:last-child {
+    @include pxRem(max-width, 358);
+    margin: auto;
+  }
+}
+
+.error{
+  &-box {
+  @include flexbox;
+  @include pxRem(max-width, 400);
+  @include pxRem(padding, 10 0);
+  @include pxRem(margin, 0 auto 30);
+  @include border-radius(5px);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: map-get($color, pink-1);
+  color: map-get($color, red-1);
+  span {
+    @include pxRem(font-size, 13);
+  }
+}
+  &-comment {
+    @include pxRem(margin, 8 0);
+    @include pxRem(max-width, 300px)  
+  }
+}

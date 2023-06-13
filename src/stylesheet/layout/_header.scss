@@ -1,0 +1,128 @@
+.header {
+  @include transition(0.2s ease-in-out);
+  background-color: map-get($color, primary);
+  border-bottom: 1px solid map-get($color, black);
+  &-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: map-get($color, white);
+    animation: fadeInDown 0.4s ease-in;
+    .btn-secondary {
+      background-color: map-get($color, primary);
+    }
+  }
+  .logo {
+    width: 101px;
+    height: 35px;
+    &-image {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 75px;
+  }
+}
+
+.nav {
+  &-list {
+    display: flex;
+    align-items: center;
+  }
+
+  &-item {
+    position: relative;
+    margin-right: 32px;
+    &:last-child {
+      margin-right: 0;
+      &:hover {
+        .dropdown-menu {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &-link {
+    @include pxRem(font-size, 14px);
+    font-weight: 500;
+    color: map-get($color, text);
+  }
+
+  &-image {
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+      @include border-radius(100%);
+      object-fit: cover;
+    }
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.dropdown {
+  &-menu {
+    position: absolute;
+    z-index: 100;
+    @include pxRem(right, 5);
+    @include pxRem(width, 180);
+    @include pxRem(border-radius, 5);
+    @include box-shadow(rgba(99, 99, 99, 0.2) 0px 2px 8px 0px);
+    background-color: map-get($color, white);
+    &-action {
+      @include pxRem(width, 120);
+    }
+    &-hide {
+      display: none;
+    }
+  }
+
+  &-item {
+    @include pxRem(padding, 10 22);
+    @include pxRem(font-size, 14);
+    color: map-get($color, text);
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+      color: map-get($color, primary);
+    }
+    a {
+      color: map-get($color, text);
+      @include pxRem(font-size, 14);
+      font-weight: 500;
+      &:hover {
+        color: map-get($color, primary);
+      }
+    }
+    i {
+      @include pxRem(margin-right, 12);
+    }
+    &-trash {
+      @include pxRem(font-size, 14);
+      font-weight: 500;
+      &:hover {
+        color: map-get($color, red-2) !important;
+      }
+    }
+  }
+}

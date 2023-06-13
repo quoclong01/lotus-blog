@@ -1,0 +1,36 @@
+.home-page {
+  .section {
+    &-post {
+      padding-right: 65px;
+    }
+    &-banner {
+      border-bottom: 1px solid map-get($color, black);
+      background-color: map-get($color, primary);
+      height: 450px;
+    }
+    &-content {
+      margin-top: 40px;
+    }
+  }
+  .banner {
+    &-inner {
+      @include flexbox;
+      align-items: center;
+      justify-content: space-between;
+      height: 450px;
+      color: map-get($color, black);
+    }
+    &-title {
+      @include pxRem(font-size, 85px);
+      @include pxRem(margin-bottom, 10px);
+      font-weight: 600;
+    }
+    &-desc {
+      @include pxRem(font-size, 18px);
+      max-width: 600px;
+      width: 100%;
+      line-height: 30px;
+      font-weight: 400;
+    }
+  }
+}

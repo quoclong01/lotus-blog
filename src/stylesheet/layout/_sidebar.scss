@@ -1,0 +1,65 @@
+.sidebar {
+  position: sticky;
+  top: 100px;
+  padding-left: 30px;
+  &-title {
+    @include pxRem(font-size, 14);
+    margin-bottom: 16px;
+  }
+
+  &-border {
+    background-color: map-get($color, primary);
+    flex: 1;
+    height: 2px;
+    margin-left: 10px;
+  }
+
+  &-more {
+    border-bottom: 1px solid map-get($color, gray-5);
+  }
+}
+
+.section {
+  &-tag {
+    padding-bottom: 24px;
+    border-bottom: 1px solid map-get($color, gray-5);
+    .tag {
+      margin: 6px;
+      &-list {
+        @include flexbox;
+        @include flex-wrap(wrap);
+        margin: 0 -6px;
+      }
+    }
+  }
+
+  &-social {
+    padding-top: 24px;
+    .social {
+      &-list {
+        @include flexbox;
+      }
+      &-item {
+        @include border-radius(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        background-color: map-get($color, primary);
+
+        margin-right: 8px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      &-link {
+        @include flexbox;
+        @include pxRem(font-size, 16);
+        color: map-get($color, white);
+      }
+    }
+  }
+}
+
