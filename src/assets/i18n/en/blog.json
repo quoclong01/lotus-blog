@@ -1,0 +1,21 @@
+{
+  "blog": {
+    "create_blog": "Create Blog",
+    "edit_blog": "Edit Blog",
+    "upload_image": "Upload file image",
+    "public": "Public",
+    "private": "Private",
+    "title": "Title",
+    "description": "Description",
+    "content": "Content",
+    "tags": "Tags",
+    "enter_tags": "Enter tags",
+    "submit": "Publish",
+    "edit": "Edit",
+    "delete": "Delete",
+    "comment": "Comment",
+    "write_comment": "Write a comment",
+    "saved": "Saved",
+    "saving": "Saving"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "common": {
+    "header": {
+      "write": "Tạo bài viết",
+      "profile": "Thông tin cá nhân",
+      "update_profile": "Cập nhật thông tin",
+      "my_recycle_bin": "Bài viết đã xóa",
+      "my_bookmarks": "Bài viết theo dõi",
+      "get_started": "Bắt đầu",
+      "welcome": "Chào mừng bạn đến với",
+      "change_password": "Thay đổi mật khẩu"
+    },
+    "banner": {
+      "title": "Hãy luôn tìm hiểu.",
+      "content": "Những cập nhật, câu chuyện mới nhất về quản lý sản phẩm, kỹ thuật, thiết kế, văn hóa và nhiều hơn nữa... từ sinh viên Quốc Long."
+    },
+    "profile": {
+      "posts": "Bài viết",
+      "follow": "Theo dõi",
+      "follower": "Người theo dõi",
+      "following": "Đang theo dõi",
+      "please": "Vui lòng",
+      "lotus_view": "từ Lotus",
+      "posts_view": "để xem bài viết!"
+    }
+  }
+}

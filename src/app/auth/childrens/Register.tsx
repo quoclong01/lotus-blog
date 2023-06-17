@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { AuthService } from '../../core/serivces/auth.service';
 import { Button, Input } from '../../shared/components/partials';
 import Image from '../../../assets/images';
@@ -15,6 +16,7 @@ import { useToast } from '../../shared/contexts/toast.contexts';
 const authService = new AuthService();
 const Register = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const toast = useToast();
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [error] = useState('');
@@ -37,7 +39,7 @@ const Register = () => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'success',
-            title: 'Create account successfully',
+            title: t('message.create_account_success'),
           });
           navigate('/auth/sign-in');
         })
@@ -45,8 +47,7 @@ const Register = () => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'error',
-            title:
-              'Error! A problem has been occurred while submitting your data.',
+            title: t('message.error'),
           });
         });
     }
@@ -62,13 +63,13 @@ const Register = () => {
         </div>
         <div className="col-7">
           <form className="form" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="form-title">Sign Up Your Account</h1>
+            <h1 className="form-title">{t('auth.sign_up_your_account')}</h1>
             <div className="form-wrapper">
               <Input
                 type="text"
                 name="firstName"
-                placeholder="First Name"
-                textLabel="First Name"
+                placeholder={t('auth.first_name')}
+                textLabel={t('auth.first_name')}
                 register={register('firstName', nameValidator())}
                 isError={errors.firstName ? true : false}
                 errorsMsg={`First name ${errors.firstName?.message}`}
@@ -76,8 +77,8 @@ const Register = () => {
               <Input
                 type="text"
                 name="lastName"
-                placeholder="Last Name"
-                textLabel="Last Name"
+                placeholder={t('auth.last_name')}
+                textLabel={t('auth.last_name')}
                 register={register('lastName', nameValidator())}
                 isError={errors.lastName ? true : false}
                 errorsMsg={`Last name ${errors.lastName?.message}`}
@@ -85,8 +86,8 @@ const Register = () => {
               <Input
                 type="text"
                 name="displayName"
-                placeholder="User Name"
-                textLabel="User Name"
+                placeholder={t('auth.user_name')}
+                textLabel={t('auth.user_name')}
                 register={register('displayName', nameValidator())}
                 isError={errors.displayName ? true : false}
                 errorsMsg={`User name ${errors.displayName?.message}`}
@@ -94,8 +95,8 @@ const Register = () => {
               <Input
                 type="text"
                 name="email"
-                placeholder="Email"
-                textLabel="Email"
+                placeholder={t('auth.email')}
+                textLabel={t('auth.email')}
                 register={register('email', emailValidator())}
                 isError={errors.email ? true : false}
                 errorsMsg={errors.email?.message}
@@ -103,8 +104,8 @@ const Register = () => {
               <Input
                 type="password"
                 name="password"
-                placeholder="Your Password"
-                textLabel="Password"
+                placeholder={t('auth.your_password')}
+                textLabel={t('auth.password')}
                 register={register('password', passwordValidator())}
                 isError={errors.password ? true : false}
                 errorsMsg={errors.password?.message}
@@ -112,8 +113,8 @@ const Register = () => {
               <Input
                 type="date"
                 name="dob"
-                placeholder="Date of Birth"
-                textLabel="Date of Birth"
+                placeholder={t('auth.date_of_birth')}
+                textLabel={t('auth.date_of_birth')}
                 register={register('dob', {
                   required: 'required',
                   validate: validateDob,
@@ -128,10 +129,10 @@ const Register = () => {
                   className="form-control form-gender"
                   {...register('gender', { required: true })}
                 >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="male">{t('auth.male')}</option>
+                  <option value="female">{t('auth.female')}</option>
                 </select>
-                <label className="label">Gender</label>
+                <label className="label">{t('auth.gender')}</label>
               </div>
             </div>
             {error && (
@@ -142,29 +143,26 @@ const Register = () => {
             <div className="form-btn">
               <Button
                 classBtn="btn btn-primary btn-auth"
-                text="Sign up"
+                text={t('auth.sign_up')}
                 isLoading={isRequestingAPI}
               />
             </div>
           </form>
           <div className="tips">
             <p className="tip-text">
-              Already have an account?
+              {t('auth.have_account')}&nbsp; 
               <Link to="/auth/sign-in" className="tip-link">
-                {' '}
-                Sign In{' '}
+                {t('auth.sign_in')}
               </Link>
             </p>
             <p className="tip-text">
-              By signing up, you confirm that you've read and accepted our
+              {t('auth.confirm')}&nbsp; 
               <Link to="/" className="tip-link">
-                {' '}
-                Terms of Service{' '}
+                {t('auth.term_of_services')}&nbsp; 
               </Link>
-              and
+              {t('auth.and')}&nbsp; 
               <Link to="/" className="tip-link">
-                {' '}
-                Privacy Policy{' '}
+                {t('auth.privacy_policy')}
               </Link>
             </p>
           </div>

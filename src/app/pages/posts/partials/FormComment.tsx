@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../../app.reducers';
 import { Button } from '../../../shared/components/partials';
 import withAuthChecking from './../../../shared/components/hoc/withAuthChecking';
@@ -12,6 +13,7 @@ const FormComment = ({
   setListComments,
   checkAuthBeforeAction,
 }: any) => {
+  const { t } = useTranslation();
   const userInfo = useSelector((state: RootState) => state.users);
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
   const {
@@ -54,7 +56,7 @@ const FormComment = ({
     <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
       <textarea
         className="comment-input form-control"
-        placeholder="Write a comment"
+        placeholder={t('blog.write_comment')}
         {...register('content', {
           required: true,
           maxLength: 800,
@@ -67,7 +69,7 @@ const FormComment = ({
       )}
       <Button
         classBtn="btn btn-primary btn-comment"
-        text="Comment"
+        text={t('blog.comment')}
         isLoading={isRequestingAPI}
       />
     </form>

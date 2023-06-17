@@ -2,8 +2,10 @@
   @include pxRem(padding, 10px 14px);
   @include pxRem(font-size, 14px);
   @include border-radius(100px);
+  @include flexbox();
+  align-items: center;
+  justify-content: center;
   position: relative;
-  display: inline-block;
   font-weight: 500;
   cursor: pointer;
   font-family: $font-primary;

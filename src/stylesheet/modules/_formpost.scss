@@ -62,11 +62,11 @@
     -webkit-appearance: none;
     &:checked {
       & ~ .check::after {
-        background-color: map-get($color, primary);
-        transform: translateX(30px);
+        background-color: map-get($color, gray-6);
+        transform: translateX(0);
       }
       & ~ .check {
-        background-color: map-get($color, gray-6);
+        background-color: map-get($color, primary);
       }
     }
   }
@@ -81,7 +81,7 @@
     @include transition(ease-in 0.3s);
     position: relative;
     display: block;
-    background-color: map-get($color, primary);
+    background-color: map-get($color, gray-6);
     cursor: pointer;
     &::after {
       @include pxRem(width, 26);
@@ -92,7 +92,8 @@
       position: absolute;
       top: 2px;
       left: 2px;
-      background-color: map-get($color, gray-6);
+      background-color: map-get($color, primary);
+      transform: translateX(30px);
     }
   }
   &-footer {
@@ -100,6 +101,7 @@
     @include flexbox;
     align-items: center;
     justify-content: flex-end;
+    gap: 0 16px;
   }
   &-btn {
     @include flexbox;
@@ -113,11 +115,11 @@
   &-error {
     input[type='text']:focus,
     textarea:focus {
-      border: 1px solid map-get($color, yellow-1);
+      border: 1px solid map-get($color, red-2);
     }
     input[type='text'],
     textarea {
-      border: 1px solid map-get($color, yellow-1);
+      border: 1px solid map-get($color, red-2);
     }
     span {
       @include pxRem(font-size, 14);

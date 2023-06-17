@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getUserInfo } from './user/user.actions';
 import { getData, storeData } from '../core/helpers/localstorage';
 import { Header } from '../shared/components/layout';
 import { useToast } from '../shared/contexts/toast.contexts';
 
 const Page = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const toast = useToast();
@@ -21,7 +23,7 @@ const Page = () => {
       if(isNewUser === 'true') {
         toast?.addToast({
           type: 'success',
-          title: 'Create account successfully.',
+          title: t('message.create_account_success'),
         });
       }
     }

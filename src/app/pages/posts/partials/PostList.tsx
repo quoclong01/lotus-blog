@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IPost } from './../../../shared/interfaces/post';
 import { Post } from './../../../shared/components/partials/Post';
 
 const PostList = (props: any) => {
+  const { t } = useTranslation();
   const { posts } = props;
   const [postList, setPost] = useState<any>(props.posts);
 
@@ -17,7 +19,7 @@ const PostList = (props: any) => {
       })}
     </ul>
   ) : (
-    <p className="comment-empty">There are no more posts to show right now</p>
+    <p className="comment-empty">{t('message.comment_empty')}</p>
   );
 };
 

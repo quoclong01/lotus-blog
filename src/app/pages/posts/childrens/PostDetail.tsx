@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { PostService } from '../../../core/serivces/post.service';
+import { KEYS, getData } from '../../../core/helpers/localstorage';
 import PostContent from '../partials/PostContent';
 import PostComment from '../partials/PostComment';
 import PostSideBar from '../partials/PostSideBar';
 import SekeletonPostContent from '../../../shared/components/partials/SekeletonPostContent';
 import SekeletonComment from '../../../shared/components/partials/SekeletonComment';
-import { PostService } from '../../../core/serivces/post.service';
 import SekeletonUserSidebar from '../../../shared/components/partials/SekeletonUserSidebar';
 
 const postService = new PostService();
@@ -21,8 +22,10 @@ const PostDetail = () => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       setLoading(true);
+      const lang = getData(KEYS.I18N_LANG, '');
+      console.log(lang)
       postService
-        .getPostsById({ id })
+        .getPostsById({ id, lang })
         .then((res: any) => {
           setIsRequestingAPI(false);
           setPost({ ...post, ...res });

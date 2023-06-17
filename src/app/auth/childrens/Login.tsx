@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { getUserInfoSuccess } from '../../pages/user/user.actions';
 import { AuthService } from '../../core/serivces/auth.service';
 import { storeData } from '../../core/helpers/localstorage';
@@ -18,6 +19,7 @@ const authService = new AuthService();
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { hash } = useLocation();
   const {
     register,
@@ -60,13 +62,13 @@ const Login = () => {
       </div>
       <div className="form-signin col-7">
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="form-title">Sign In</h1>
+          <h1 className="form-title">{t('auth.sign_in')}</h1>
           <div className="form-wrapper">
             <Input
               type="text"
               name="email"
-              placeholder="Email"
-              textLabel="Email"
+              placeholder={t('auth.email')}
+              textLabel={t('auth.email')}
               register={register('email', emailValidator())}
               isError={errors.email ? true : false}
               errorsMsg={errors.email?.message}
@@ -74,8 +76,8 @@ const Login = () => {
             <Input
               type="password"
               name="password"
-              placeholder="Your Password"
-              textLabel="Password"
+              placeholder={t('auth.your_password')}
+              textLabel={t('auth.password')}
               register={register('password', passwordValidator())}
               isError={errors.password ? true : false}
               errorsMsg={errors.password?.message}
@@ -89,24 +91,23 @@ const Login = () => {
           <div className="form-btn">
             <Button
               classBtn="btn btn-primary btn-auth"
-              text="Sign in"
+              text={t('auth.sign_in')}
               isLoading={isRequestingAPI}
             />
           </div>
           <a href={`${environment.apiBaseUrl}/auth/google`} className="login-with-google-btn">
             <i className="fa-brands fa-google"></i>
-            Sign in with Google
+            {t('auth.login_with_google')}
           </a>
         </form>
         <div className="tips txt-center">
           <Link to="/" className="tip-link">
-            Forgot your password?
+            {t('auth.forgot_password')}
           </Link>
           <p className="tip-text">
-            Don’t have an account?
+            {t('auth.dont_have_account')}&nbsp; 
             <Link to="/auth/sign-up" className="tip-link">
-              {' '}
-              Sign up{' '}
+              {t('auth.sign_up')}
             </Link>
           </p>
         </div>

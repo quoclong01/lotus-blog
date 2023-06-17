@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PostService } from '../../../core/serivces/post.service';
 import PostList from '../partials/PostList';
 import SekeletonPost from '../../../shared/components/partials/SekeletonPost';
 
 const postService = new PostService();
 const RecycleBin = () => {
+  const { t } = useTranslation();
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [posts, setPosts] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
@@ -48,7 +50,7 @@ const RecycleBin = () => {
 
   return (
     <main className="main-content">
-      <h2 className="section-title txt-center">My Recycle Bin</h2>
+      <h2 className="section-title txt-center">{ t('common.header.my_recycle_bin') }</h2>
       {isRequestingAPI ? <SekeletonPost /> : <PostList posts={posts} />}
     </main>
   );

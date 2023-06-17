@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Tag } from './Tag';
 import { formatDate } from './../../common/formatDate';
 import { checkUserId } from '../../common/checkUserId';
@@ -7,6 +8,8 @@ import Image from '../../../../assets/images';
 import PostAction from '../../../pages/posts/partials/PostAction';
 
 export const Post = ({ post, setPost }: any) => {
+  const { t } = useTranslation();
+
   return (
     <li key={post.id} className="post-item">
       <div className="post">
@@ -36,12 +39,12 @@ export const Post = ({ post, setPost }: any) => {
             ) : post.status === 'public' ? (
               <div className="post-status">
                 <i className="fa-solid fa-unlock"></i>
-                Public
+                {t('blog.public')}
               </div>
             ) : (
               <div className="post-status">
                 <i className="fa-solid fa-lock"></i>
-                Private
+                {t('blog.private')}
               </div>
             )}
             <p className="post-date">{formatDate(post.createdAt)}</p>
@@ -85,7 +88,8 @@ export const Post = ({ post, setPost }: any) => {
                   {post.tags.split(',').slice(-3).map((tag: any) => {
                     return <Tag key={tag} name={tag} />;
                   })}
-                </ul>}
+                </ul>
+              }
             </div>
           </div>
           <div className="post-image">

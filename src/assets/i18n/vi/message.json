@@ -1,0 +1,18 @@
+{
+  "message": {
+    "create_account_success": "Tạo tài khoản thành công.",
+    "create_post_success": "Tạo bài viết thành công.",
+    "update_post_success": "Cập nhật bài viết thành công.",
+    "delete_post_success": "Xóa bài viết thành công.",
+    "restore_post_success": "Khôi phục bài viết thành công.",
+    "update_passord_success": "Cập nhật mật khẩu thành công.",
+    "update_profile_success": "Cập nhật thông tin thành công.",
+    "add_bookmark_success": "Thêm bookmark thành công.",
+    "remove_bookmark_success": "Xóa bookmark thành công.",
+    "error": "Lỗi! Đã xảy ra sự cố khi gửi dữ liệu của bạn.",
+    "title_error": "Tiêu đề phải có ít nhất 20 ký tự.",
+    "desc_error": "Mô tả phải có ít nhất 50 ký tự.",
+    "content_error": "Nội dung phải có ít nhất 100 ký tự.",
+    "comment_empty": "Không có nhiều bài viết để hiển thị ngay bây giờ."
+  }
+}

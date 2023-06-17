@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import RecommendList from './RecommendList';
 import { checkUserId } from '../../../shared/common/checkUserId';
 import Image from '../../../../assets/images';
@@ -12,6 +13,7 @@ import { UserService } from '../../../core/serivces/user.service';
 const postService = new PostService();
 const userService = new UserService();
 const PostSideBar = (post: any) => {
+  const { t } = useTranslation();
   const [postsRecommend, setPostsRecommend] = useState<any>([]);
   const [loading, setLoading] = useState<any>(false);
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
@@ -83,7 +85,7 @@ const PostSideBar = (post: any) => {
             <h4 className="author-info-name">{authorInfo?.displayName}</h4>
           </Link>
           <span className="author-follower">
-            {authorInfo.followers} Followers
+            {authorInfo.followers} {t('common.profile.follower')}
           </span>
           {!checkUserId(post.post?.userId) && (
             <ButtonFollow
@@ -95,7 +97,7 @@ const PostSideBar = (post: any) => {
         </div>
       )}
       <div className="article-recommend">
-        <h3 className="recommend-title">MORE FROM LOTUS</h3>
+        <h3 className="recommend-title">{ t('home.post.recommend')}</h3>
         {loading ? (
           <SekeletonRecommendPost />
         ) : (

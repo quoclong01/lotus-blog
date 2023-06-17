@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { UserService } from '../../../core/serivces/user.service';
 import { Button, Input } from '../../../shared/components/partials';
 import { useToast } from '../../../shared/contexts/toast.contexts';
@@ -16,6 +17,8 @@ const UserUpdatePassword = () => {
   const checkPass = watch('newPassword');
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
   const toast = useToast();
+  const { t } = useTranslation();
+
   const onSubmit = (data: any) => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
@@ -28,15 +31,14 @@ const UserUpdatePassword = () => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'success',
-            title: 'Update password successfully',
+            title: t('message.update_passord_success'),
           });
         })
         .catch((error) => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'error',
-            title:
-              'Error! A problem has been occurred while submitting your data.',
+            title:t('message.error'),
           });
         });
     }
@@ -48,8 +50,8 @@ const UserUpdatePassword = () => {
           <Input
             name="password"
             type="password"
-            placeholder="Old Password"
-            textLabel="Old Password"
+            placeholder={t('auth.old_password')}
+            textLabel={t('auth.old_password')}
             register={register('oldPassword', passwordValidator())}
             isError={errors.oldPassword ? true : false}
             errorsMsg={errors.oldPassword?.message}
@@ -57,8 +59,8 @@ const UserUpdatePassword = () => {
           <Input
             name="password"
             type="password"
-            placeholder="New Password"
-            textLabel="New Password"
+            placeholder={t('auth.new_password')}
+            textLabel={t('auth.new_password')}
             register={register('newPassword', passwordValidator())}
             isError={errors.newPassword ? true : false}
             errorsMsg={errors.newPassword?.message}
@@ -66,8 +68,8 @@ const UserUpdatePassword = () => {
           <Input
             name="password"
             type="password"
-            placeholder="Confirm Password"
-            textLabel="Confirm Password"
+            placeholder={t('auth.confirm_passowrd')}
+            textLabel={t('auth.confirm_passowrd')}
             register={register('confirmPassword', {
               validate: (value) =>
                 value === checkPass || 'The password is invalid.',
@@ -79,7 +81,7 @@ const UserUpdatePassword = () => {
           />
           <Button
             classBtn="btn btn-primary update-btn"
-            text="Change"
+            text={t('auth.update')}
             isLoading={isRequestingAPI}
           />
         </form>

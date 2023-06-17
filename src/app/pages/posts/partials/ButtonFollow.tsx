@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UserService } from '../../../core/serivces/user.service';
 import withAuthChecking from '../../../shared/components/hoc/withAuthChecking';
 import { Button } from '../../../shared/components/partials';
@@ -10,6 +11,7 @@ const ButtonFollow = ({
   checkAuthBeforeAction,
   setAuthorInfo,
 }: any) => {
+  const { t } = useTranslation();
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
   const handleFollow = () => {
     if (!isRequestingAPI) {
@@ -44,7 +46,7 @@ const ButtonFollow = ({
   return (
     <Button
       classBtn="btn btn-primary btn-follow"
-      text={authorInfo.isFollowed ? 'Following' : 'Follow'}
+      text={authorInfo.isFollowed ? t('common.profile.following') : t('common.profile.follow')}
       onClick={doFollow}
       isLoading={isRequestingAPI}
     />

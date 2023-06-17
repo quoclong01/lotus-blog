@@ -69,6 +69,13 @@
       object-fit: cover;
     }
   }
+
+  &-lang {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    font-weight: 600;
+  }
 }
 
 @keyframes fadeInDown {
@@ -85,7 +92,7 @@
     position: absolute;
     z-index: 100;
     @include pxRem(right, 5);
-    @include pxRem(width, 180);
+    @include pxRem(min-width, 200);
     @include pxRem(border-radius, 5);
     @include box-shadow(rgba(99, 99, 99, 0.2) 0px 2px 8px 0px);
     background-color: map-get($color, white);

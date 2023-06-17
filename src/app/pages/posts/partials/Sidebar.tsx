@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import RecommendList from './RecommendList';
 import { Tag } from '../../../shared/components/partials';
 import Icon from '../../../../assets/icons/index';
@@ -13,6 +14,7 @@ export const Sidebar = () => {
   const [tags, setTags] = useState<any>([]);
   const [loading, setLoading] = useState<any>([]);
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
+  const { t } = useTranslation();
 
   const getPostsRecommend = async () => {
     if (!isRequestingAPI) {
@@ -58,7 +60,7 @@ export const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="section-tag">
-        <h3 className="sidebar-title">DISCOVER MORE OF WHAT MATTERS TO YOU</h3>
+        <h3 className="sidebar-title">{ t('home.post.tags') }</h3>
         <ul className="tag-list">
           {/* Because there is no api for tag list
               so I use loading state of recommend list to make UI attractively */}
@@ -76,7 +78,7 @@ export const Sidebar = () => {
         </ul>
       </div>
       <div className="article-recommend sidebar-more">
-        <h3 className="recommend-title">MORE FROM LOTUS</h3>
+        <h3 className="recommend-title">{ t('home.post.recommend') }</h3>
         {loading ? (
           <SekeletonRecommendPost />
         ) : (
@@ -84,7 +86,7 @@ export const Sidebar = () => {
         )}
       </div>
       <div className="section-social">
-        <h3 className="sidebar-title">SOCIAL MEDIA</h3>
+        <h3 className="sidebar-title">{ t('home.post.social_media') }</h3>
         <ul className="social-list">
           <li className="social-item">
             <Link className="social-link" to="/">

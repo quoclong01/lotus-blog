@@ -1,0 +1,21 @@
+{
+  "blog": {
+    "create_blog": "ブログを作成する",
+    "edit_blog": "ブログを編集する",
+    "upload_image": "画像をアップロードする",
+    "public": "公共",
+    "private": "プライベート",
+    "title": "タイトル",
+    "description": "説明",
+    "content": "コンテンツ",
+    "tags": "タグ",
+    "enter_tags": "タグを入力してください",
+    "submit": "送信",
+    "edit": "編集",
+    "delete": "消去",
+    "comment": "コメント",
+    "write_comment": "コメントを書く",
+    "saved": "保存されました",
+    "saving": "保存"
+  }
+}

@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { Editor } from '@tinymce/tinymce-react';
 import { TagsInput } from 'react-tag-input-component';
+import { useTranslation } from 'react-i18next';
 import { SignaturesService } from './../../../core/serivces/signatures.service';
 import { PostService } from './../../../core/serivces/post.service';
 import { COVER_POST_IMAGE } from '../../constants/constant';
@@ -14,35 +15,61 @@ import { useToast } from '../../contexts/toast.contexts';
 
 const signaturesService = new SignaturesService();
 const postService = new PostService();
-const FormPost = () => {
-  const [selectedImage, setSelectedImage] = useState<string>(COVER_POST_IMAGE);
-  const [tags, setTags] = useState<any>();
-  const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const toast = useToast();
-  const navigate = useNavigate();
-  const { id } = useParams();
+const FormPost = () => {  
   const {
     register,
     handleSubmit,
     control,
     setValue,
+    getValues,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
       cover: COVER_POST_IMAGE,
-      status: false,
+      status: true,
       title: '',
       description: '',
       content: '',
     },
   });
 
+  const [selectedImage, setSelectedImage] = useState<string>(COVER_POST_IMAGE);
+  const [tags, setTags] = useState<any>();
+  const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [draft, setDraft] = useState<any>({
+    status: false,
+    id: '',
+    loading: false,
+  });
+  const toast = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { id } = useParams();
+  const dataPost = watch(['title', 'description', 'content']);
+  const didMountRef = useRef(false);
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (id) {
       getPostById();
     }
   }, [id]);
+
+  useEffect(() => {
+    let myTimeout;
+    if (didMountRef.current) {
+      if (!id || draft.status) {
+        myTimeout = setTimeout(handleSaveDraftArticle, 500);
+      }
+    } else {
+      didMountRef.current = true;
+    }
+    return () => {
+      clearTimeout(myTimeout);
+    }
+  }, dataPost);
 
   const getPostById = () => {
     if (!isRequestingAPI) {
@@ -57,9 +84,16 @@ const FormPost = () => {
             setValue('title', res?.title);
             setValue('description', res?.description);
             setValue('content', res?.content);
-            setValue('status', res?.status === 'public' ? false : true);
+            setValue('status', res?.status === 'public' || res?.status === 'draft');
             setSelectedImage(res?.cover);
             setTags(res?.tags);
+            if (res?.status === 'draft') { 
+              setDraft((prev: any) => ({
+                ...prev,
+                id: res?.id,
+                status: res?.status === 'draft'
+              }));
+            }
           } else {
             navigate('/');
           }
@@ -75,11 +109,11 @@ const FormPost = () => {
 
   const onSubmitForm = (data: any) => {
     const dataPost = { ...data };
-    dataPost.status = data.status ? 'private' : 'public';
+    dataPost.status = data.status ? 'public' : 'private';
     if (tags?.length) {
       dataPost.tags = tags;
     }
-    if (id) {
+    if (id && !draft.status) {
       updatePost(id, dataPost);
     } else {
       createPost(dataPost);
@@ -87,24 +121,45 @@ const FormPost = () => {
   };
 
   const updatePost = (id: string, data: any) => {
-    if (!isRequestingAPI) {
-      setIsRequestingAPI(true);
+    if (!isRequestingAPI || !draft.loading) {
+      if (draft.status) {
+        setDraft((prev: any) => ({
+          ...prev,
+          loading: true
+        }));
+      } else {
+        setIsRequestingAPI(true);
+      }
       postService
-        .updateArticle(id, data)
+        .updatePost(id, data)
         .then((res: any) => {
-          setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'success',
-            title: 'Update post successfully.',
-          });
-          navigate(`/posts/${res.id}`);
+          if (draft.status) {
+            setDraft((prev: any) => ({
+              ...prev,
+              loading: false
+            }));
+          } else {
+            setIsRequestingAPI(false);
+            toast?.addToast({
+              type: 'success',
+              title: t('message.update_post_success'),
+            });
+            navigate(`/posts/${res.id}`);
+          }
         })
         .catch((error: any) => {
+          if (draft.status) {
+            setDraft((prev: any) => ({
+              ...prev,
+              loading: false
+            }));
+          } else {
+            setIsRequestingAPI(false);
+          }
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'error',
-            title:
-              'Error! A problem has been occurred while submitting your data.',
+            title: t('message.error'),
           });
         });
     }
@@ -114,12 +169,12 @@ const FormPost = () => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       postService
-        .createArticle(data)
+        .createPost(data)
         .then((res: any) => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'success',
-            title: 'Create post successfully.',
+            title: t('message.create_post_success'),
           });
           navigate(`/posts/${res.id}`);
         })
@@ -127,13 +182,11 @@ const FormPost = () => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'error',
-            title:
-              'Error! A problem has been occurred while submitting your data.',
+            title: t('message.error'),
           });
         });
     }
   };
-
 
   const handleChangeFile = async (e: any) => {
     const file = e.target.files[0];
@@ -145,22 +198,59 @@ const FormPost = () => {
     try {
       signaturesService.getSignatures(payload).then(async (data: any) => {
         setValue('cover', data.url);
-        await signaturesService.uploadImage(data, file);
       });
     } catch (err) {
       toast?.addToast({
         type: 'error',
-        title: 'Error! A problem has been occurred while submitting your data.',
+        title: t('message.error'),
       });
     }
     setSelectedImage(URL.createObjectURL(file));
   };
 
-  if (loading) return <Loading />;
+  const getDataForm = () => {
+    let data: any = getValues();
+    data.status = draft.status ? 'draft' : data.status ? 'public' : 'private';
+    return data;
+  };
+
+  const handleSaveDraftArticle = () => {
+    if (!draft.loading && !draft.status) {
+      setDraft((prev: any) => ({
+        ...prev,
+        loading: true
+      }));
+      postService
+        .saveDraftPost(getDataForm())
+        .then((res: any) => {
+          setDraft((prev: any) => ({
+            ...prev,
+            status: res?.status === 'draft',
+            loading: false
+          }));
+          navigate(`/posts/${res?.id}/edit`, {state: { isDraft: true }});
+        })
+        .catch((error: any) => {
+          setDraft((prev: any) => ({
+            ...prev,
+            loading: false
+          }));
+          toast?.addToast({
+            type: 'error',
+            title:
+              'Error! A problem has been occurred while submitting your data.',
+          });
+        });
+    } else {
+      updatePost(draft.id, getDataForm());
+    }
+  };
+
+  if (loading && !location.state) return <Loading />;
   return (
     <>
       <h2 className="section-title txt-center">
-        {id ? 'Edit Blog' : 'Create New Blog'}
+        {id ? t('blog.edit_blog') : t('blog.create_blog')}
       </h2>
       <form className="form-post" onSubmit={handleSubmit(onSubmitForm)}>
         <div className="form-post-group">
@@ -175,7 +265,7 @@ const FormPost = () => {
                   : 'form-post-file'
               }
             >
-              <label htmlFor="cover">Upload file image</label>
+              <label htmlFor="cover">{t('blog.upload_image')}</label>
               <input
                 {...register('cover')}
                 onChange={handleChangeFile}
@@ -187,7 +277,7 @@ const FormPost = () => {
             </div>
             <div className="form-post-status">
               <label htmlFor="status">
-                Public
+                {t('blog.public')}
                 <input
                   {...register('status')}
                   type="checkbox"
@@ -203,7 +293,7 @@ const FormPost = () => {
               errors.title ? 'form-post-item form-post-error' : 'form-post-item'
             }
           >
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">{t('blog.title')}</label>
             <input
               {...register('title', { required: true, minLength: 20 })}
               type="text"
@@ -211,7 +301,7 @@ const FormPost = () => {
               className="form-post-input"
             />
             {errors.title && (
-              <span>Title should be at least 20 characters.</span>
+              <span>{t('message.title_error')}</span>
             )}
           </div>
           <div
@@ -221,15 +311,15 @@ const FormPost = () => {
                 : 'form-post-item'
             }
           >
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('blog.description')}</label>
             <textarea
               {...register('description', { required: true, minLength: 50 })}
               id="description"
               className="form-post-input"
               rows={3}
             />
-            {errors.title && (
-              <span>Description should be at least 50 characters.</span>
+            {errors.description && (
+              <span>{t('message.desc_error')}</span>
             )}
           </div>
           <div
@@ -239,7 +329,7 @@ const FormPost = () => {
                 : 'form-post-item'
             }
           >
-            <label htmlFor="content">Content</label>
+            <label htmlFor="content">{t('blog.content')}</label>
             <Controller
               control={control}
               name="content"
@@ -267,23 +357,29 @@ const FormPost = () => {
               )}
             />
             {errors.content && (
-              <span>Content should be at least 100 characters.</span>
+              <span>{t('message.content_error')}</span>
             )}
           </div>
           <div className="form-post-item">
-            <label htmlFor="tags">Tags</label>
+            <label htmlFor="tags">{t('blog.tags')}</label>
             <TagsInput
               value={tags}
               onChange={setTags}
               name="tags"
-              placeHolder="Enter tags"
+              placeHolder={t('blog.enter_tags')}
             />
           </div>
           <div className="form-post-footer">
+            {(draft.status || !id) && (
+              <Button
+                classBtn="btn btn-secondary btn-lg"
+                text={draft.loading ? t('blog.saving') : t('blog.saved')}
+              />
+            )}
             <Button
               type="submit"
               classBtn="btn btn-primary form-post-btn"
-              text="Publish"
+              text={t('blog.submit')}
               isLoading={isRequestingAPI}
             />
           </div>

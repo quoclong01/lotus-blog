@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { SignaturesService } from './../../../core/serivces/signatures.service';
 import { UserService } from './../../../core/serivces/user.service';
 import { RootState } from '../../../app.reducers';
@@ -15,6 +16,7 @@ import { useToast } from '../../../shared/contexts/toast.contexts';
 const userService = new UserService();
 const signaturesService = new SignaturesService();
 const UserUpdateProfile = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const toast = useToast();
   const [avatar, setAvatar] = useState<string>(Image.Avatar);
@@ -58,14 +60,17 @@ const UserUpdateProfile = () => {
         .then((res: any) => {
           setIsRequestingAPI(false);
           dispatch(getUserInfoSuccess(res));
-          toast?.addToast({ type: 'success', title: 'Update Profile Success' });
+          toast?.addToast(
+            {
+              type: 'success',
+              title: t('message.update_profile_success')
+            });
         })
         .catch((error: any) => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'error',
-            title:
-              'Error! A problem has been occurred while submitting your data.',
+            title: t('message.error'),
           });
         });
     }
@@ -81,12 +86,11 @@ const UserUpdateProfile = () => {
     try {
       signaturesService.getSignatures(payload).then(async (data: any) => {
         setValue('picture', data.url);
-        await signaturesService.uploadImage(data, file);
       });
     } catch (err) {
       toast?.addToast({
         type: 'error',
-        title: 'Error! A problem has been occurred while submitting your data.',
+        title: t('message.error'),
       });
     }
     setAvatar(URL.createObjectURL(file));
@@ -124,8 +128,8 @@ const UserUpdateProfile = () => {
             <Input
               type="text"
               name="firstName"
-              placeholder="First Name"
-              textLabel="First Name"
+              placeholder={t('auth.first_name')}
+              textLabel={t('auth.first_name')}
               register={register('firstName', nameValidator())}
               isError={errors.firstName ? true : false}
               errorsMsg={`First name ${errors.firstName?.message}`}
@@ -133,8 +137,8 @@ const UserUpdateProfile = () => {
             <Input
               type="text"
               name="lastName"
-              placeholder="Last Name"
-              textLabel="Last Name"
+              placeholder={t('auth.last_name')}
+              textLabel={t('auth.last_name')}
               register={register('lastName', nameValidator())}
               isError={errors.lastName ? true : false}
               errorsMsg={`Last name ${errors.lastName?.message}`}
@@ -142,8 +146,8 @@ const UserUpdateProfile = () => {
             <Input
               type="text"
               name="displayName"
-              placeholder="User Name"
-              textLabel="User Name"
+              placeholder={t('auth.user_name')}
+              textLabel={t('auth.user_name')}
               register={register('displayName', nameValidator())}
               isError={errors.displayName ? true : false}
               errorsMsg={`User name ${errors.displayName?.message}`}
@@ -151,8 +155,8 @@ const UserUpdateProfile = () => {
             <Input
               type="text"
               name="phone"
-              placeholder="Phone"
-              textLabel="Phone"
+              placeholder={t('auth.phone')}
+              textLabel={t('auth.phone')}
               register={register('phone', {
                 pattern: /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
               })}
@@ -162,8 +166,8 @@ const UserUpdateProfile = () => {
             <Input
               type="date"
               name="dob"
-              placeholder="Date of Birth"
-              textLabel="Date of Birth"
+              placeholder={t('auth.date_of_birth')}
+              textLabel={t('auth.date_of_birth')}
               register={register('dob', {
                 required: 'required',
                 validate: validateDob,
@@ -182,7 +186,7 @@ const UserUpdateProfile = () => {
                   value="male"
                   id="male"
                 />
-                Male
+                {t('auth.male')}
                 <span className="checkmark"></span>
               </label>
               <label htmlFor="female" className="update-gender-label">
@@ -193,7 +197,7 @@ const UserUpdateProfile = () => {
                   value="female"
                   id="female"
                 />
-                Female
+                {t('auth.female')}
                 <span className="checkmark"></span>
               </label>
               <label htmlFor="other" className="update-gender-label">
@@ -204,7 +208,7 @@ const UserUpdateProfile = () => {
                   value="other"
                   id="other"
                 />
-                Other
+                {t('auth.other')}
                 <span className="checkmark"></span>
               </label>
             </div>
@@ -216,7 +220,7 @@ const UserUpdateProfile = () => {
           )}
           <Button
             classBtn="btn btn-primary update-btn"
-            text="Update"
+            text={t('auth.update')}
             isLoading={isRequestingAPI}
           />
         </form>

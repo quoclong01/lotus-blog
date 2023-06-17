@@ -1,0 +1,18 @@
+{
+  "message": {
+    "create_account_success": "Create account successfully.",
+    "create_post_success": "Create post successfully.",
+    "update_post_success": "Update post successfully.",
+    "delete_post_success": "Delete post successfully.",
+    "restore_post_success": "Restore post successfully.",
+    "update_passord_success": "Update password successfully.",
+    "update_profile_success": "Update profile successfully.",
+    "add_bookmark_success": "Add bookmark successfully.",
+    "remove_bookmark_success": "Remove bookmark successfully.",
+    "error": "Error! A problem has been occurred while submitting your data.",
+    "title_error": "Title should be at least 20 characters.",
+    "desc_error": "Description should be at least 50 characters.",
+    "content_error": "Content should be at least 100 characters.",
+    "comment_empty": "There are no more posts to show right now."
+  }
+}

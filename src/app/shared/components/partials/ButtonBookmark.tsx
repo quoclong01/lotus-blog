@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useToast } from '../../contexts/toast.contexts';
 import { BookmarkService } from '../../../core/serivces/bookmark.service';
 import { Button } from './Button';
@@ -9,6 +10,7 @@ const bookmarkService = new BookmarkService();
 const ButtonBookmark = ({ post, checkAuthBeforeAction }: any) => {
   const location = useLocation();
   const toast = useToast();
+  const { t } = useTranslation();
   const [isInBookmark, setIsInBookmark] = useState<boolean>(post.isInBookmark);
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
 
@@ -28,12 +30,12 @@ const ButtonBookmark = ({ post, checkAuthBeforeAction }: any) => {
           if(res.isInBookmark) {
             toast?.addToast({
               type: 'success',
-              title: 'Add bookmark successfully.',
+              title: t('message.add_bookmark_success'),
             });
           } else {
             toast?.addToast({
               type: 'success',
-              title: 'Remove bookmark successfully.',
+              title: t('message.remove_bookmark_success'),
             });
           }
           setIsRequestingAPI(false);

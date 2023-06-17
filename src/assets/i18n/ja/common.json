@@ -1,0 +1,27 @@
+{
+  "common": {
+    "header": {
+      "write": "返事",
+      "profile": "プロフィール",
+      "update_profile": "プロフィールを更新する",
+      "my_recycle_bin": "私のごみ箱",
+      "my_bookmarks": "私のブックマーク",
+      "get_started": "始めましょう",
+      "welcome": "ようこそ",
+      "change_password": "パスワードを変更する"
+    },
+    "banner": {
+      "title": "について学ぶ。",
+      "content": "Quoc Long の学生からの製品管理、エンジニアリング、デザイン、文化などに関する最新情報、ストーリー。"
+    },
+    "profile": {
+      "posts": "投稿",
+      "follow": "従う",
+      "follower": "フォロワー",
+      "following": "続く",
+      "please": "お願いします",
+      "lotus_view": "ロータスへ",
+      "posts_view": "さんの投稿です！"
+    }
+  }
+}

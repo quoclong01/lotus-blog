@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../../app.reducers';
 import { clearUserInfo } from '../../../pages/user/user.actions';
 import { AuthService } from '../../../core/serivces/auth.service';
-import { getData } from '../../../core/helpers/localstorage';
+import { KEYS, storeData, getData } from '../../../core/helpers/localstorage';
 import withAuthChecking from '../hoc/withAuthChecking';
 import Image from '../../../../assets/images';
 
 const WriteTemplate = ({ checkAuthBeforeAction }: any) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const handleWrite = (e: any) => {
     e.preventDefault();
     checkAuthBeforeAction(() => navigate('/posts/new'));
@@ -17,7 +19,7 @@ const WriteTemplate = ({ checkAuthBeforeAction }: any) => {
   return (
     <li className="nav-item">
       <Link to="/posts/new" className="nav-link" onClick={handleWrite}>
-        Write
+        {t('common.header.write')}
       </Link>
     </li>
   );
@@ -31,12 +33,23 @@ export const Header = () => {
   const user = useSelector((state: RootState) => state.users.data);
   const [sticky, setSticky] = useState<string>('');
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
+  const [currentLang, setCurrentLang] = useState<string>('');
+  const { t, i18n } = useTranslation();
+  const languageList = ['vi', 'en', 'ja'];
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky);
     return () => {
       window.removeEventListener('scroll', isSticky);
     };
+  }, []);
+
+  useEffect(() => {
+    const lang = getData(KEYS.I18N_LANG, '');
+    if (lang) {
+      i18n.changeLanguage(lang);
+      setCurrentLang(lang);
+    }
   }, []);
 
   const isSticky = () => {
@@ -70,6 +83,13 @@ export const Header = () => {
     }
   };
 
+  const handleChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const lang = e.target.value;
+    setCurrentLang(lang);
+    storeData(KEYS.I18N_LANG, lang);
+    i18n.changeLanguage(lang);
+  }
+
   return (
     <header className={`header ${sticky}`}>
       <div className="container">
@@ -80,10 +100,19 @@ export const Header = () => {
             </Link>
           </h1>
           <ul className="nav-list">
+            <li className="nav-item">
+              <select className="nav-lang" name="language" onChange={handleChangeLang} value={currentLang}>
+                {
+                  languageList.map((item: string) =>
+                    <option value={item} key={item}>{item.toUpperCase()}</option>
+                  )
+                }
+                </select>
+            </li>
             <Write />
             {Object.keys(user).length ? (
               <li className="nav-item">
-                <div className="nav-image">
+              <div className="nav-image">
                   <img
                     src={user.picture || Image.Avatar}
                     alt={user.displayName}
@@ -97,30 +126,30 @@ export const Header = () => {
                   <li className="dropdown-item">
                     <Link to={`/profile/me`}>
                       <i className="fa-solid fa-user"></i>
-                      Profile
+                      {t('common.header.profile')}
                     </Link>
                   </li>
                   <li className="dropdown-item">
                     <Link to="/profile/update">
                       <i className="fa-solid fa-file-pen"></i>
-                      Update Profile
+                      {t('common.header.update_profile')}
                     </Link>
                   </li>
                   <li className="dropdown-item">
                     <Link to="/posts/recycle-bin">
                       <i className="fa-solid fa-trash"></i>
-                      My Recycle Bin
+                      {t('common.header.my_recycle_bin')}
                     </Link>
                   </li>
                   <li className="dropdown-item">
                     <Link to="/bookmarks">
                       <i className="fa-solid fa-bookmark"></i>
-                      My Bookmarks
+                      {t('common.header.my_bookmarks')}
                     </Link>
                   </li>
                   <li className="dropdown-item" onClick={handleSignOut}>
                     <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                    Sign Out
+                    {t('auth.sign_out')}
                   </li>
                 </ul>
               </li>
@@ -128,12 +157,12 @@ export const Header = () => {
               <>
                 <li className="nav-item">
                   <Link to="/auth/sign-in" className="nav-link">
-                    Sign In
+                    {t('auth.sign_in')}
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/auth/sign-up" className="btn btn-secondary">
-                    Get started
+                    {t('common.header.get_started')}
                   </Link>
                 </li>
               </>

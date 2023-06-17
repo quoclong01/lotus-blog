@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { PostService } from '../../../core/serivces/post.service';
 import { checkUserId } from '../../../shared/common/checkUserId';
 import { useDialog } from '../../../shared/contexts/dialog.contexts';
@@ -22,6 +23,7 @@ const PostAction = ({ post, setPost }: IPostAction) => {
   const dialog = useDialog();
   const location = useLocation();
   const getPath = location.pathname;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const checkIfClickedOutside = (e: any) => {
@@ -54,7 +56,7 @@ const PostAction = ({ post, setPost }: IPostAction) => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'success',
-            title: 'Delete post successfully',
+            title: t('message.delete_post_success'),
           });
         })
         .catch((error) => {
@@ -68,12 +70,12 @@ const PostAction = ({ post, setPost }: IPostAction) => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       postService
-        .restoreArticle(id)
+        .restorePost(id)
         .then((res: any) => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'success',
-            title: 'Restore post successfully.',
+            title: t('message.restore_post_success'),
           });
           navigate(`/posts/${id}`);
         })
@@ -81,7 +83,7 @@ const PostAction = ({ post, setPost }: IPostAction) => {
           setIsRequestingAPI(false);
           toast?.addToast({
             type: 'error',
-            title: 'Restore post error.',
+            title: t('message.error'),
           });
         });
     }
@@ -132,7 +134,7 @@ const PostAction = ({ post, setPost }: IPostAction) => {
               <li className="dropdown-item">
                 <Link to={`/posts/${post.id}/edit`}>
                   <i className="fa-solid fa-pen"></i>
-                  Edit
+                  {t('blog.edit')}
                 </Link>
               </li>
               <li
@@ -140,7 +142,7 @@ const PostAction = ({ post, setPost }: IPostAction) => {
                 onClick={() => doActionPost('delete')}
               >
                 <i className="fa-solid fa-trash-can"></i>
-                Delete
+                {t('blog.delete')}
               </li>
             </ul>
           </div>

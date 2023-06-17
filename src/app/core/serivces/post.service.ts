@@ -34,7 +34,7 @@ export class PostService {
   }
 
   getPostsById(data: any) {
-    return this.http.get([`${ENDPOINT.posts.index}/${data.id}`]);
+    return this.http.get([`${ENDPOINT.posts.index}/${data.id}${data.lang ? `?lang=${data.lang}` : ''}`]);
   }
 
   likePostsDetail(id: number) {
@@ -49,11 +49,11 @@ export class PostService {
     return this.http.post([`${ENDPOINT.posts.index}/${id}/comments`], data);
   }
 
-  createArticle(data: any) {
+  createPost(data: any) {
     return this.http.post([ENDPOINT.posts.index], data);
   }
 
-  updateArticle(id: string, data: any) {
+  updatePost(id: string, data: any) {
     return this.http.put([`${ENDPOINT.posts.index}/${id}`], data);
   }
 
@@ -61,12 +61,15 @@ export class PostService {
     return this.http.delete([`${ENDPOINT.posts.index}/${id}`]);
   }
 
-  restoreArticle(id: string | number) {
+  restorePost(id: string | number) {
     return this.http.put([`${ENDPOINT.posts.index}/${id}/restore`]);
   }
   getTags(data: any) {
     return this.http.get([
       `${ENDPOINT.posts.tags}?${data.size ? `size=${data.size}` : null}`
     ]);
+  }
+  saveDraftPost(data: any) {
+    return this.http.post([ENDPOINT.posts.draft], data);
   }
 }

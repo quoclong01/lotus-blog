@@ -1,0 +1,27 @@
+{
+  "common": {
+    "header": {
+      "write": "Write",
+      "profile": "Profile",
+      "update_profile": "Update Profile",
+      "my_recycle_bin": "My Recycle Bin",
+      "my_bookmarks": "My Bookmarks",
+      "get_started": "Get started",
+      "welcome": "Welcome to",
+      "change_password": "Change Password"
+    },
+    "banner": {
+      "title": "Stay curious.",
+      "content": "The latest updates, stories, on product management, engineering,design, culture and many more... from the Quoc Long students."
+    },
+    "profile": {
+      "posts": "Posts",
+      "follow": "Follow",
+      "follower": "Followers",
+      "following": "Following",
+      "please": "Please",
+      "lotus_view": "to Lotus to view",
+      "posts_view": "'s posts!"
+    }
+  }
+}

@@ -1,16 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Image from '../../../../assets/images';
 
 const Banner = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="section section-banner">
       <div className="container">
         <div className="banner-inner">
           <div className="banner-content">
-            <h2 className="banner-title">Stay curious.</h2>
+            <h2 className="banner-title">{t('common.banner.title')}</h2>
             <p className="banner-desc">
-              The latest updates, stories, on product management, engineering,
-              design, culture and many more... from the Lotus team.
+              {t('common.banner.content')}
             </p>
           </div>
           <div className="banner-image">

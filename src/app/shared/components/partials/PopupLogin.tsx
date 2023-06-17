@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useDialog } from './../../contexts/dialog.contexts';
 import { AuthService } from './../../../core/serivces/auth.service';
 import { getUserInfoSuccess } from '../../../pages/user/user.actions';
@@ -24,6 +25,7 @@ const PopUpLogin = () => {
   } = useForm();
   const dispatch = useDispatch();
   const dialog = useDialog();
+  const { t } = useTranslation();
 
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [error, setError] = useState('');
@@ -49,7 +51,7 @@ const PopUpLogin = () => {
   return (
     <form className="popup-login" onSubmit={handleSubmit(onSubmit)}>
       <div className="popup-login-header">
-        <h1 className="popup-login-title">Welcome to</h1>
+        <h1 className="popup-login-title">{t('common.header.welcome')}</h1>
         <div className="popup-login-image">
           <img src={Image.Logo} alt="Lotus" />
         </div>
@@ -58,8 +60,8 @@ const PopUpLogin = () => {
         <Input
           type="text"
           name="email"
-          placeholder="Email"
-          textLabel="Email"
+          placeholder={t('auth.email')}
+          textLabel={t('auth.email')}
           register={register('email', emailValidator())}
           isError={errors.email ? true : false}
           errorsMsg={errors.email?.message}
@@ -67,8 +69,8 @@ const PopUpLogin = () => {
         <Input
           type="password"
           name="password"
-          placeholder="Your Password"
-          textLabel="Password"
+          placeholder={t('auth.your_password')}
+          textLabel={t('auth.password')}
           register={register('password', passwordValidator())}
           isError={errors.password ? true : false}
           errorsMsg={errors.password?.message}
@@ -82,22 +84,22 @@ const PopUpLogin = () => {
       <div className="form-btn">
         <Button
           classBtn="btn btn-primary popup-login-btn"
-          text="Sign in"
+          text={t('auth.sign_in')}
           isLoading={isRequestingAPI}
         />
       </div>
       <a href={`${environment.apiBaseUrl}/auth/google`} className="login-with-google-btn">
         <i className="fa-brands fa-google"></i>
-        Sign in with Google
+        {t('auth.login_with_google')}
       </a>
       <Link to="/" className="tip-link">
-        Forgot your password?
+        {t('auth.forgot_password')}
       </Link>
       <p className="tip-text">
-        Don’t have an account?
+        {t('auth.dont_have_account')}
         <Link to="/auth/sign-up" className="tip-link">
           {' '}
-          Sign up{' '}
+          {t('auth.sign_up')}{' '}
         </Link>
       </p>
     </form>

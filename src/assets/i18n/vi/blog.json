@@ -1,0 +1,21 @@
+{
+  "blog": {
+    "create_blog": "Tạo bài viết",
+    "edit_blog": "Sửa bài viết",
+    "upload_image": "Tải ảnh lên",
+    "public": "Public",
+    "private": "Private",
+    "title": "Tiêu đề",
+    "description": "Mô tả",
+    "content": "Nội dung",
+    "tags": "Danh mục",
+    "enter_tags": "Nhập danh mục",
+    "submit": "Tạo",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "comment": "Bình luận",
+    "write_comment": "Viết bình luận",
+    "saved": "Lưu",
+    "saving": "Đang lưu"
+  }
+}

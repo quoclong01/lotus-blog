@@ -81,7 +81,7 @@
     &-interact {
       @include flexbox;
       @include pxRem(margin, 16 0);
-      font-size: map-get($font-size, xl);
+      font-size: 16px;
     }
     &-description {
       @include pxRem(margin, 16 0);

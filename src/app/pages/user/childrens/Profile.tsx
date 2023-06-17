@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import UserInfo from '../partials/UserInfo';
 import SekeletonPost from '../../../shared/components/partials/SekeletonPost';
 import SekeletonUserInfo from '../../../shared/components/partials/SekeletonUserInfo';
@@ -9,6 +10,7 @@ import PostList from '../../posts/partials/PostList';
 
 const userService = new UserService();
 const Profile = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
   const [authorInfo, setAuthorInfo] = useState<any>();
@@ -56,13 +58,13 @@ const Profile = () => {
             <PostList posts={authorInfo?.Posts} />
           ) : (
             <div className="message-post">
-              Please
+              { t('common.profile.please') }
               <Link to={`/auth/sign-in#profile=${id}`} className="message-link">
-                Sign In
+                { t('auth.sign_in') }
               </Link>
-              to Lotus to view
+              { t('common.profile.lotus_view') }
               <span className="message-name"> {authorInfo.displayName} </span>
-              's posts!
+              { t('common.profile.posts_view') }
             </div>
           )}
         </>

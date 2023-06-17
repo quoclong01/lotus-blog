@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Image from '../../../../assets/images';
 import { checkUserId } from '../../../shared/common/checkUserId';
 import { useDialog } from '../../../shared/contexts/dialog.contexts';
@@ -11,6 +12,7 @@ interface IUserProps {
 }
 
 const UserInfo = ({ authorInfo }: IUserProps) => {
+  const { t } = useTranslation();
   const dialog = useDialog();
   const [user, setUser] = useState<any>({});
   useEffect(() => {
@@ -44,12 +46,12 @@ const UserInfo = ({ authorInfo }: IUserProps) => {
       <div className="author-info">
         <h2 className="author-name">{user?.displayName}</h2>
         <ul className="author-list">
-          <li className="author-item">{user.Posts?.length || 0} Posts</li>
+          <li className="author-item">{user.Posts?.length || 0} {t('common.profile.posts')}</li>
           <li className="author-item" onClick={handleListFollowers}>
-            {user?.followers} Followers
+            {user?.followers} {t('common.profile.follower')}
           </li>
           <li className="author-item" onClick={handleListFollowing}>
-            {user?.followings} Following
+            {user?.followings} {t('common.profile.following')}
           </li>
         </ul>
         {!checkUserId(user.id) && (
