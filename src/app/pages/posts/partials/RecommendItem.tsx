@@ -20,7 +20,14 @@ const RecommendItem = ({ item }: IArticleItemProps) => {
         <span>{formatDate(item.createdAt)}</span>
       </div>
       <Link to={`/posts/${item.id}`} className="article-item-image">
-        <img src={item.cover || Image.Empty} alt={item.title} />
+        <img
+          src={item.cover || Image.Empty}
+          alt={item.title}
+          onError={(e: any) => {
+            e.target['onerror'] = null;
+            e.target['src'] = Image.Empty;
+          }}
+        />
       </Link>
     </li>
   );

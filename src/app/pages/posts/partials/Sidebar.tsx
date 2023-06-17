@@ -10,14 +10,15 @@ import { PostService } from '../../../core/serivces/post.service';
 const postService = new PostService();
 export const Sidebar = () => {
   const [postsRecommend, setPostsRecommend] = useState<any>([]);
+  const [tags, setTags] = useState<any>([]);
   const [loading, setLoading] = useState<any>([]);
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
 
-  const getPostsRecommend = () => {
+  const getPostsRecommend = async () => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       setLoading(true);
-      postService
+      await postService
         .getPostsRecommend({ page: 1, size: 3 })
         .then((res: any) => {
           setIsRequestingAPI(false);
@@ -31,8 +32,27 @@ export const Sidebar = () => {
     }
   };
 
+  const getTags = async () => {
+    if (!isRequestingAPI) {
+      setIsRequestingAPI(true);
+      setLoading(true);
+      await postService
+        .getTags({ size: 10 })
+        .then((res: any) => {
+          setIsRequestingAPI(false);
+          setTags([...res.data]);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setIsRequestingAPI(false);
+          setLoading(false);
+        });
+    }
+  };
+
   useEffect(() => {
     getPostsRecommend();
+    getTags();
   }, []);
 
   return (
@@ -46,12 +66,11 @@ export const Sidebar = () => {
             <SekeletonTag />
           ) : (
             <>
-              <Tag name="React" />
-              <Tag name="CSS" />
-              <Tag name="Javascript" />
-              <Tag name="Entertainment" />
-              <Tag name="Travel" />
-              <Tag name="onChange" />
+              {
+                tags.map((name: string, index: number) => 
+                  <Tag key={index} name={name} />
+                )
+              }
             </>
           )}
         </ul>

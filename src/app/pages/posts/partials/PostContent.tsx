@@ -66,6 +66,10 @@ const PostContent = ({ post }: any) => {
           className="article-image"
           src={post.cover || Image.Empty}
           alt={post.title}
+          onError={(e: any) => {
+            e.target['onerror'] = null;
+            e.target['src'] = Image.Empty;
+          }}
         />
         <div className="article-text">{convertHtml(post.content)}</div>
         <div className="article-interact">

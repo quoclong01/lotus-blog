@@ -64,4 +64,9 @@ export class PostService {
   restoreArticle(id: string | number) {
     return this.http.put([`${ENDPOINT.posts.index}/${id}/restore`]);
   }
+  getTags(data: any) {
+    return this.http.get([
+      `${ENDPOINT.posts.tags}?${data.size ? `size=${data.size}` : null}`
+    ]);
+  }
 }

@@ -18,6 +18,7 @@ export const ENDPOINT = {
     public: `${RESOURCES.posts}/public`,
     recommend: `${RESOURCES.posts}/recommend`,
     recyclebin: `${RESOURCES.posts}/recyclebin`,
+    tags: `${RESOURCES.posts}/tags`
   },
   signatures: {
     index: `${RESOURCES.signatures}`,

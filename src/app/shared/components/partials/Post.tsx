@@ -90,7 +90,14 @@ export const Post = ({ post, setPost }: any) => {
           </div>
           <div className="post-image">
             <Link to={`/posts/${post.id}`} className="post-image-link">
-              <img src={post.cover || Image.Empty} alt={post.title} />
+              <img
+                src={post.cover || Image.Empty}
+                alt={post.title}
+                onError={(e: any) => {
+                  e.target['onerror'] = null;
+                  e.target['src'] = Image.Empty;
+                }}
+              />
             </Link>
           </div>
         </div>

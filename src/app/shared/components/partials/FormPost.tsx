@@ -134,6 +134,7 @@ const FormPost = () => {
     }
   };
 
+
   const handleChangeFile = async (e: any) => {
     const file = e.target.files[0];
     const payload = {
