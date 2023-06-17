@@ -1,5 +1,5 @@
 import { PageRoute } from '../../core/modules/custom-router-dom/router.interface';
-import { Home, Edit, New, PostDetail, RecycleBin } from './childrens/index';
+import { Home, Edit, New, PostDetail, RecycleBin, Draft } from './childrens/index';
 import Posts from './Posts';
 
 const postRoutes: PageRoute[] = [
@@ -34,6 +34,11 @@ const postRoutes: PageRoute[] = [
         element: RecycleBin,
         isProtected: true,
       },
+      {
+        path: 'draft',
+        element: Draft,
+        isProtected: true
+      }
     ],
   },
 ];

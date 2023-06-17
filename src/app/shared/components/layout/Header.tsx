@@ -136,6 +136,12 @@ export const Header = () => {
                     </Link>
                   </li>
                   <li className="dropdown-item">
+                    <Link to="/posts/draft">
+                      <i className="fa-brands fa-firstdraft"></i>
+                      {t('common.header.draft')}
+                    </Link>
+                  </li>
+                  <li className="dropdown-item">
                     <Link to="/posts/recycle-bin">
                       <i className="fa-solid fa-trash"></i>
                       {t('common.header.my_recycle_bin')}

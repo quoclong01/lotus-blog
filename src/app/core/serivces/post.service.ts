@@ -33,6 +33,10 @@ export class PostService {
     return this.http.get([`${ENDPOINT.posts.recyclebin}?page=${page}&size=${size}`]);
   }
 
+  getPostsDraft(page: number | string, size: number | string) {
+    return this.http.get([`${ENDPOINT.posts.draft}?page=${page}&size=${size}`]);
+  }
+
   getPostsById(data: any) {
     return this.http.get([`${ENDPOINT.posts.index}/${data.id}${data.lang ? `?lang=${data.lang}` : ''}`]);
   }
