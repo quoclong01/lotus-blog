@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { PostService } from '../../../core/serivces/post.service';
 import { checkUserId } from '../../../shared/common/checkUserId';
 import { useDialog } from '../../../shared/contexts/dialog.contexts';
-import { useToast } from '../../../shared/contexts/toast.contexts';
 import ButtonBookmark from '../../../shared/components/partials/ButtonBookmark';
 import { Button } from '../../../shared/components/partials';
 
@@ -17,7 +17,6 @@ const postService = new PostService();
 const PostAction = ({ post, setPost }: IPostAction) => {
   const ref = useRef<any>();
   const navigate = useNavigate();
-  const toast = useToast();
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [showAction, setShowAction] = useState<boolean>(false);
   const dialog = useDialog();
@@ -54,10 +53,7 @@ const PostAction = ({ post, setPost }: IPostAction) => {
             navigate('/posts');
           }
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'success',
-            title: t('message.delete_post_success'),
-          });
+          toast.success(t('message.delete_post_success'));
         })
         .catch((error) => {
           setIsRequestingAPI(false);
@@ -73,18 +69,12 @@ const PostAction = ({ post, setPost }: IPostAction) => {
         .restorePost(id)
         .then((res: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'success',
-            title: t('message.restore_post_success'),
-          });
+          toast.success(t('message.restore_post_success'));
           navigate(`/posts/${id}`);
         })
         .catch((error: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'error',
-            title: t('message.error'),
-          });
+          toast.error(t('message.error'));
         });
     }
   };

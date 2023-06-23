@@ -10,14 +10,14 @@ export class PostService {
   getPublicPosts(data: any) {
     return this.http.get([
       `${ENDPOINT.posts.public}?${
-        data.tags ? `tags=${data.tags}` : null
-      }&page=${data.page}&size=${data.size}`,
+        data.tags ? `tags=${data.tags}` : ''
+      }${data.title ? `query=${data.title}`: ''}&page=${data.page}&size=${data.size}`,
     ]);
   }
 
   getPosts(data: any) {
     return this.http.get([
-      `${ENDPOINT.posts.index}?${data.tags ? `tags=${data.tags}` : null}&page=${
+      `${ENDPOINT.posts.index}?${data.tags ? `tags=${data.tags}` : ''}${data.title ? `query=${data.title}`: ''}&page=${
         data.page
       }&size=${data.size}`,
     ]);

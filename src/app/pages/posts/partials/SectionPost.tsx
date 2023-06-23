@@ -14,6 +14,7 @@ const SectionPost = () => {
   const [page, setPage] = useState<number>(1);
   const [searchParams] = useSearchParams({});
   const paramsTag = searchParams.get('tags');
+  const queryTag = searchParams.get('query');
   const totalPage = useRef(0);
 
   useEffect(() => {
@@ -35,9 +36,9 @@ const SectionPost = () => {
       setLoading(true);
       let api: Promise<any>;
       if (getData('token', '')) {
-        api = postService.getPosts({ tags: paramsTag, page, size: 5 });
+        api = postService.getPosts({ tags: paramsTag, title: queryTag, page, size: 5 });
       } else {
-        api = postService.getPublicPosts({ tags: paramsTag, page, size: 5 });
+        api = postService.getPublicPosts({ tags: paramsTag, title: queryTag, page, size: 5 });
       }
       api
         .then((res: any) => {

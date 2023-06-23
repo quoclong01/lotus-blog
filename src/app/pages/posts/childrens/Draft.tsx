@@ -50,7 +50,7 @@ const Draft = () => {
 
   return (
     <main className="main-content">
-      <h2 className="section-title txt-center">{ t('common.header.my_recycle_bin') }</h2>
+      <h2 className="section-title txt-center">{ t('common.header.draft') }</h2>
       {isRequestingAPI ? <SekeletonPost /> : <PostList posts={posts} />}
     </main>
   );

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { UserService } from '../../../core/serivces/user.service';
 import { Button, Input } from '../../../shared/components/partials';
-import { useToast } from '../../../shared/contexts/toast.contexts';
 import { passwordValidator } from '../../../shared/validations/form.validation';
 
 const userService = new UserService();
@@ -16,7 +16,6 @@ const UserUpdatePassword = () => {
   } = useForm();
   const checkPass = watch('newPassword');
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
-  const toast = useToast();
   const { t } = useTranslation();
 
   const onSubmit = (data: any) => {
@@ -29,17 +28,11 @@ const UserUpdatePassword = () => {
         })
         .then((res: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'success',
-            title: t('message.update_passord_success'),
-          });
+          toast.success(t('message.update_passord_success'));
         })
         .catch((error) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'error',
-            title:t('message.error'),
-          });
+          toast.error(t('message.error'));
         });
     }
   };

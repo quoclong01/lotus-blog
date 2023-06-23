@@ -72,6 +72,20 @@
       color: map-get($color, primary);
     }
   }
+  &-github {
+    width: 100%;
+    color: #fff;
+    background-color: #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: 0.1s linear;
+    &:hover {
+      opacity: 0.9;
+    }
+    i {
+      margin-right: 8px;
+    }
+  }
 }
 
 .fa {
@@ -94,7 +108,7 @@
   transition: background-color .3s, box-shadow .3s;
   width: 100%;
     
-  padding: 10px 16px 10px 42px;
+  padding: 10px 16px;
   border: none;
   border-radius: 3px;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
@@ -134,4 +148,5 @@
     margin-right: 8px;
   }
 }
+
 

@@ -172,6 +172,77 @@
       }
     }
   }
+  &-recommend {
+    margin-top: 50px;
+    padding: 60px 0 80px 0;
+    background-color: rgba(250, 250, 250, 1);
+    &-heading  {
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    &-image {
+      display: block;
+      height: 180px;
+      margin-bottom: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &-item {
+      margin-bottom: 40px;
+    }
+    &-author {
+      display: flex;
+      align-items: center;
+      color: #333;
+      margin-bottom: 20px;
+      &-image {
+        display: block;
+        width: 30px;
+        height: 30px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 20px;
+        }
+      }
+      &-name {
+        font-weight: 400;
+        margin-left: 8px;
+      }
+      &:hover {
+        .post-recommend-author-name {
+          text-decoration: underline;
+        }
+      }
+    }
+    &-title {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.2;
+      @include ellipsis-special(2);
+      a {
+        color: #333;
+        &:hover {
+          color: #ff932f;
+        }
+      }
+    }
+    &-desc {
+      padding-top: 8px;
+      color: rgba(117, 117, 117, 1);
+      font-size: 14px;
+      @include ellipsis-special(2);
+    }
+    &-date {
+      display: block;
+      margin: 12px 0;
+      font-size: 12px;
+    }
+  }
 }
 
 .article {

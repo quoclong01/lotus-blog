@@ -3,7 +3,9 @@
     "post": {
       "tags": "自分にとって重要なことをもっと発見する",
       "recommend": "ロータスの詳細",
-      "social_media": "ソーシャルメディア"
+      "social_media": "ソーシャルメディア",
+      "post_diff": "他の投稿",
+      "post_recommend": "ロータスからのおすすめ"
     }
   }
 }

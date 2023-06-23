@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { Editor } from '@tinymce/tinymce-react';
 import { TagsInput } from 'react-tag-input-component';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { SignaturesService } from './../../../core/serivces/signatures.service';
 import { PostService } from './../../../core/serivces/post.service';
 import { COVER_POST_IMAGE } from '../../constants/constant';
 import Loading from './Loading';
 import { checkUserId } from './../../common/checkUserId';
 import { Button } from './Button';
-import { useToast } from '../../contexts/toast.contexts';
 
 const signaturesService = new SignaturesService();
 const postService = new PostService();
@@ -21,8 +21,6 @@ const FormPost = () => {
     handleSubmit,
     control,
     setValue,
-    getValues,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -38,17 +36,9 @@ const FormPost = () => {
   const [tags, setTags] = useState<any>();
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [draft, setDraft] = useState<any>({
-    status: false,
-    id: '',
-    loading: false,
-  });
-  const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-  const dataPost = watch(['title', 'description', 'content']);
-  const didMountRef = useRef(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -57,19 +47,6 @@ const FormPost = () => {
     }
   }, [id]);
 
-  useEffect(() => {
-    let myTimeout;
-    if (didMountRef.current) {
-      if (!id || draft.status) {
-        myTimeout = setTimeout(handleSaveDraftArticle, 500);
-      }
-    } else {
-      didMountRef.current = true;
-    }
-    return () => {
-      clearTimeout(myTimeout);
-    }
-  }, dataPost);
 
   const getPostById = () => {
     if (!isRequestingAPI) {
@@ -84,16 +61,9 @@ const FormPost = () => {
             setValue('title', res?.title);
             setValue('description', res?.description);
             setValue('content', res?.content);
-            setValue('status', res?.status === 'public' || res?.status === 'draft');
+            setValue('status', res?.status === 'public' ? true : false);
             setSelectedImage(res?.cover);
             setTags(res?.tags);
-            if (res?.status === 'draft') { 
-              setDraft((prev: any) => ({
-                ...prev,
-                id: res?.id,
-                status: res?.status === 'draft'
-              }));
-            }
           } else {
             navigate('/');
           }
@@ -113,7 +83,7 @@ const FormPost = () => {
     if (tags?.length) {
       dataPost.tags = tags;
     }
-    if (id && !draft.status) {
+    if (id) {
       updatePost(id, dataPost);
     } else {
       createPost(dataPost);
@@ -121,46 +91,18 @@ const FormPost = () => {
   };
 
   const updatePost = (id: string, data: any) => {
-    if (!isRequestingAPI || !draft.loading) {
-      if (draft.status) {
-        setDraft((prev: any) => ({
-          ...prev,
-          loading: true
-        }));
-      } else {
-        setIsRequestingAPI(true);
-      }
+    if (!isRequestingAPI) {
+      setIsRequestingAPI(true);
       postService
         .updatePost(id, data)
         .then((res: any) => {
-          if (draft.status) {
-            setDraft((prev: any) => ({
-              ...prev,
-              loading: false
-            }));
-          } else {
-            setIsRequestingAPI(false);
-            toast?.addToast({
-              type: 'success',
-              title: t('message.update_post_success'),
-            });
-            navigate(`/posts/${res.id}`);
-          }
+          setIsRequestingAPI(false);
+          toast.success(t('message.update_post_success'));
+          navigate(`/posts/${res.id}`);
         })
         .catch((error: any) => {
-          if (draft.status) {
-            setDraft((prev: any) => ({
-              ...prev,
-              loading: false
-            }));
-          } else {
-            setIsRequestingAPI(false);
-          }
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'error',
-            title: t('message.error'),
-          });
+          toast.error(t('message.error'));
         });
     }
   };
@@ -172,18 +114,12 @@ const FormPost = () => {
         .createPost(data)
         .then((res: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'success',
-            title: t('message.create_post_success'),
-          });
+          toast.success(t('message.create_post_success'));
           navigate(`/posts/${res.id}`);
         })
         .catch((error: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'error',
-            title: t('message.error'),
-          });
+          toast.error(t('message.error'));
         });
     }
   };
@@ -200,50 +136,9 @@ const FormPost = () => {
         setValue('cover', data.url);
       });
     } catch (err) {
-      toast?.addToast({
-        type: 'error',
-        title: t('message.error'),
-      });
+      toast.error(t('message.error'));
     }
     setSelectedImage(URL.createObjectURL(file));
-  };
-
-  const getDataForm = () => {
-    let data: any = getValues();
-    data.status = draft.status ? 'draft' : data.status ? 'public' : 'private';
-    return data;
-  };
-
-  const handleSaveDraftArticle = () => {
-    if (!draft.loading && !draft.status) {
-      setDraft((prev: any) => ({
-        ...prev,
-        loading: true
-      }));
-      postService
-        .saveDraftPost(getDataForm())
-        .then((res: any) => {
-          setDraft((prev: any) => ({
-            ...prev,
-            status: res?.status === 'draft',
-            loading: false
-          }));
-          navigate(`/posts/${res?.id}/edit`, {state: { isDraft: true }});
-        })
-        .catch((error: any) => {
-          setDraft((prev: any) => ({
-            ...prev,
-            loading: false
-          }));
-          toast?.addToast({
-            type: 'error',
-            title:
-              'Error! A problem has been occurred while submitting your data.',
-          });
-        });
-    } else {
-      updatePost(draft.id, getDataForm());
-    }
   };
 
   if (loading && !location.state) return <Loading />;
@@ -370,12 +265,6 @@ const FormPost = () => {
             />
           </div>
           <div className="form-post-footer">
-            {(draft.status || !id) && (
-              <Button
-                classBtn="btn btn-secondary btn-lg"
-                text={draft.loading ? t('blog.saving') : t('blog.saved')}
-              />
-            )}
             <Button
               type="submit"
               classBtn="btn btn-primary form-post-btn"

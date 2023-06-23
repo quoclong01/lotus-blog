@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { SignaturesService } from './../../../core/serivces/signatures.service';
 import { UserService } from './../../../core/serivces/user.service';
 import { RootState } from '../../../app.reducers';
@@ -11,14 +12,12 @@ import { validateDob } from '../../../shared/common/validateDob';
 import { nameValidator } from '../../../shared/validations/form.validation';
 import Loading from '../../../shared/components/partials/Loading';
 import Image from '../../../../assets/images';
-import { useToast } from '../../../shared/contexts/toast.contexts';
 
 const userService = new UserService();
 const signaturesService = new SignaturesService();
 const UserUpdateProfile = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const toast = useToast();
   const [avatar, setAvatar] = useState<string>(Image.Avatar);
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [error] = useState('');
@@ -60,23 +59,16 @@ const UserUpdateProfile = () => {
         .then((res: any) => {
           setIsRequestingAPI(false);
           dispatch(getUserInfoSuccess(res));
-          toast?.addToast(
-            {
-              type: 'success',
-              title: t('message.update_profile_success')
-            });
+          toast.success(t('message.update_profile_success'));
         })
         .catch((error: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'error',
-            title: t('message.error'),
-          });
+          toast.error(t('message.error'));
         });
     }
   };
 
-  const handleChangeAvatar = (e: any) => {
+  const handleChangeAvatar = async (e: any) => {
     const file = e.target.files[0];
     const payload = {
       type_upload: 'avatar',
@@ -84,14 +76,11 @@ const UserUpdateProfile = () => {
       file_type: file.type,
     };
     try {
-      signaturesService.getSignatures(payload).then(async (data: any) => {
+      await signaturesService.getSignatures(payload).then((data: any) => {
         setValue('picture', data.url);
       });
     } catch (err) {
-      toast?.addToast({
-        type: 'error',
-        title: t('message.error'),
-      });
+      toast.error(t('message.error'));
     }
     setAvatar(URL.createObjectURL(file));
   };
@@ -158,6 +147,7 @@ const UserUpdateProfile = () => {
               placeholder={t('auth.phone')}
               textLabel={t('auth.phone')}
               register={register('phone', {
+                required: 'required',
                 pattern: /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
               })}
               isError={errors.phone ? true : false}

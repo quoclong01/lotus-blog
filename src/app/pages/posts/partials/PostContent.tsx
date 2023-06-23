@@ -9,7 +9,6 @@ import Image from '../../../../assets/images';
 import PostAction from './PostAction';
 
 const PostContent = ({ post }: any) => {
-  console.log(post)
   return (
     <div className="articles-item">
       <div className="article-header">

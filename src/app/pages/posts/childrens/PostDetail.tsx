@@ -8,6 +8,7 @@ import PostSideBar from '../partials/PostSideBar';
 import SekeletonPostContent from '../../../shared/components/partials/SekeletonPostContent';
 import SekeletonComment from '../../../shared/components/partials/SekeletonComment';
 import SekeletonUserSidebar from '../../../shared/components/partials/SekeletonUserSidebar';
+import PostRecommend from '../partials/PostRecommend';
 
 const postService = new PostService();
 const PostDetail = () => {
@@ -23,7 +24,6 @@ const PostDetail = () => {
       setIsRequestingAPI(true);
       setLoading(true);
       const lang = getData(KEYS.I18N_LANG, '');
-      console.log(lang)
       postService
         .getPostsById({ id, lang })
         .then((res: any) => {
@@ -64,6 +64,7 @@ const PostDetail = () => {
           </div>
         </div>
       </section>
+      <PostRecommend postId={id} />
     </main>
   );
 };

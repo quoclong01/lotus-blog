@@ -24,7 +24,7 @@ export const Sidebar = () => {
         .getPostsRecommend({ page: 1, size: 3 })
         .then((res: any) => {
           setIsRequestingAPI(false);
-          setPostsRecommend([...postsRecommend, ...res.data]);
+          setPostsRecommend([...res.data]);
           setLoading(false);
         })
         .catch((error) => {

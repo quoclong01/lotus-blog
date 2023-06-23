@@ -2,6 +2,7 @@ import { PageRoute } from '../../core/modules/custom-router-dom/router.interface
 import Profile from './childrens/Profile';
 import Update from './childrens/Update';
 import User from './User';
+import Chat from './childrens/Chat';
 
 const userRoutes: PageRoute[] = [
   {
@@ -17,7 +18,12 @@ const userRoutes: PageRoute[] = [
         element: Update,
         isProtected: true
       }
-    ]
+    ],
+  },
+  {
+    path: '/chat',
+    element: Chat,
+    isProtected: true,
   }
 ];
 

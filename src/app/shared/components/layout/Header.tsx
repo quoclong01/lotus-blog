@@ -34,6 +34,7 @@ export const Header = () => {
   const [sticky, setSticky] = useState<string>('');
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [currentLang, setCurrentLang] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>('');
   const { t, i18n } = useTranslation();
   const languageList = ['vi', 'en', 'ja'];
 
@@ -90,6 +91,10 @@ export const Header = () => {
     i18n.changeLanguage(lang);
   }
 
+  const handleSearchPost = (e: any) => {
+    setSearchInput(e.target.value);
+  }
+
   return (
     <header className={`header ${sticky}`}>
       <div className="container">
@@ -100,6 +105,14 @@ export const Header = () => {
             </Link>
           </h1>
           <ul className="nav-list">
+            <li className="nav-item">
+              <div className="search-box">
+                <input type="text" placeholder={t('common.header.search')} className="search-input" value={searchInput} onChange={handleSearchPost}/>
+                <a href={`/posts?query=${searchInput}`} className="search-btn">
+                  <i className="fas fa-search"></i>
+                </a>
+              </div>
+            </li>
             <li className="nav-item">
               <select className="nav-lang" name="language" onChange={handleChangeLang} value={currentLang}>
                 {

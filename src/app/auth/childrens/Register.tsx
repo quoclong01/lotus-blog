@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { AuthService } from '../../core/serivces/auth.service';
 import { Button, Input } from '../../shared/components/partials';
 import Image from '../../../assets/images';
@@ -11,13 +12,11 @@ import {
   nameValidator,
   passwordValidator,
 } from '../../shared/validations/form.validation';
-import { useToast } from '../../shared/contexts/toast.contexts';
 
 const authService = new AuthService();
 const Register = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const toast = useToast();
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
   const [error] = useState('');
   const {
@@ -37,18 +36,12 @@ const Register = () => {
         .signUp(dataRegister)
         .then((res: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'success',
-            title: t('message.create_account_success'),
-          });
+          toast.success(t('message.create_account_success'));
           navigate('/auth/sign-in');
         })
         .catch((error: any) => {
           setIsRequestingAPI(false);
-          toast?.addToast({
-            type: 'error',
-            title: t('message.error'),
-          });
+          toast.error(t('message.error'));
         });
     }
   };

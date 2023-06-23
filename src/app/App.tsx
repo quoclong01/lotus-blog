@@ -12,10 +12,12 @@ import rootReducer from './app.reducers';
 
 import '../stylesheet/styles.scss';
 import { DialogProvider } from './shared/components/partials/Dialog';
-import { ToastProvider } from './shared/components/partials/Toast';
 
 import i18n from './core/serivces/i18n.service';
 import { I18nextProvider } from 'react-i18next';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   const middlewares = createSagaMiddleware();
@@ -26,11 +28,22 @@ function App() {
   return (
     <Provider store={store}>
       <DialogProvider>
-        <ToastProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            limit={3}
+          />
           <I18nextProvider i18n={i18n}>
             <RouterOutlet routes={appRoutes} />
           </I18nextProvider>
-        </ToastProvider>
       </DialogProvider>
     </Provider>
   );

@@ -3,7 +3,9 @@
     "post": {
       "tags": "KHÁM PHÁ THÊM NHỮNG ĐIỀU QUAN TRỌNG VỚI BẠN",
       "recommend": "BIẾT THÊM TỪ LOTUS",
-      "social_media": "MẠNG XÃ HỘI"
+      "social_media": "MẠNG XÃ HỘI",
+      "post_diff": "CÁC BÀI VIẾT KHÁC",
+      "post_recommend": "BÀI VIẾT ĐỀ XUẤT TỪ LOTUS"
     }
   }
 }

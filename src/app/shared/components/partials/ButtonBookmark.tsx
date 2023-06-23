@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useToast } from '../../contexts/toast.contexts';
+import { toast } from 'react-toastify';
 import { BookmarkService } from '../../../core/serivces/bookmark.service';
 import { Button } from './Button';
 import withAuthChecking from '../hoc/withAuthChecking';
@@ -9,7 +9,7 @@ import withAuthChecking from '../hoc/withAuthChecking';
 const bookmarkService = new BookmarkService();
 const ButtonBookmark = ({ post, checkAuthBeforeAction }: any) => {
   const location = useLocation();
-  const toast = useToast();
+  // const toast = useToast();
   const { t } = useTranslation();
   const [isInBookmark, setIsInBookmark] = useState<boolean>(post.isInBookmark);
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
@@ -28,15 +28,9 @@ const ButtonBookmark = ({ post, checkAuthBeforeAction }: any) => {
         .then((res: any) => {
           setIsInBookmark(res.isInBookmark);
           if(res.isInBookmark) {
-            toast?.addToast({
-              type: 'success',
-              title: t('message.add_bookmark_success'),
-            });
+            toast.success(t('message.add_bookmark_success'));
           } else {
-            toast?.addToast({
-              type: 'success',
-              title: t('message.remove_bookmark_success'),
-            });
+            toast.success(t('message.remove_bookmark_success'));
           }
           setIsRequestingAPI(false);
         })

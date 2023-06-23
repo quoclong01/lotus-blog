@@ -10,6 +10,9 @@
     @include pxRem(padding, 20 0);
     @include pxRem(font-size, 18);
     border-bottom: 1px solid map-get($color, gray-5);
+    &:last-child {
+      border-bottom: none;
+    }
   }
   &-header {
     @include pxRem(margin-bottom, 8);

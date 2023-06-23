@@ -7,10 +7,8 @@ import Image from '../../../../assets/images';
 import SekeletonRecommendPost from '../../../shared/components/partials/SekeletonRecommendPost';
 import SekeletonUserSidebar from '../../../shared/components/partials/SekeletonUserSidebar';
 import ButtonFollow from './ButtonFollow';
-import { PostService } from '../../../core/serivces/post.service';
 import { UserService } from '../../../core/serivces/user.service';
 
-const postService = new PostService();
 const userService = new UserService();
 const PostSideBar = (post: any) => {
   const { t } = useTranslation();
@@ -23,12 +21,14 @@ const PostSideBar = (post: any) => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       setLoading(true);
-      postService
-        .getPostsRecommend({ page: 2, size: 4 })
+      userService
+        .getUserPosts(post.post.user?.id)
         .then((res: any) => {
           setIsRequestingAPI(false);
-          setPostsRecommend([...postsRecommend, ...res.data]);
-          setLoading(false);
+          setLoading(false); 
+          if (res.Posts.length) {
+            setPostsRecommend([...res.Posts.slice(-5)]);
+          }
         })
         .catch((error) => {
           setIsRequestingAPI(false);
@@ -97,7 +97,7 @@ const PostSideBar = (post: any) => {
         </div>
       )}
       <div className="article-recommend">
-        <h3 className="recommend-title">{ t('home.post.recommend')}</h3>
+        <h3 className="recommend-title">{ t('home.post.post_diff')}</h3>
         {loading ? (
           <SekeletonRecommendPost />
         ) : (
