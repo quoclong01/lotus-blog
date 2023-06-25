@@ -3,7 +3,9 @@ const RESOURCES = {
   posts: 'posts',
   signatures: 'signatures',
   friends: 'friends',
-  bookmarks: 'bookmarks'
+  bookmarks: 'bookmarks',
+  chat: 'chat',
+  message: 'message',
 };
 
 export const ENDPOINT = {
@@ -30,5 +32,12 @@ export const ENDPOINT = {
   },
   bookmarks: {
     index: `${RESOURCES.bookmarks}`
+  },
+  chat: {
+    index: `${RESOURCES.chat}`,
+    find: `${RESOURCES.chat}/find`
+  },
+  message: {
+    index: `${RESOURCES.message}`,
   }
 };

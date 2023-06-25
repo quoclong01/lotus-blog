@@ -59,6 +59,9 @@
         object-fit: cover;
       }
     }
+    &-name {
+      font-size: 0.8rem;
+    }
   }
   &-heading {
     display: flex;
@@ -106,7 +109,6 @@
 .chatbox {
   &-container {
     background: #f5f5f5;
-    border-radius: 1rem;
     display: grid;
     grid-template-rows: 90px 74vh auto;
     height: calc(100vh - 76px);
