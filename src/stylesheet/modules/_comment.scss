@@ -15,6 +15,9 @@
     }
   }
   &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     @include pxRem(margin-bottom, 8);
   }
   &-user {

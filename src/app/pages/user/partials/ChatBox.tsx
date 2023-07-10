@@ -104,11 +104,12 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
 
   // Receive Message from parent component
   useEffect(() => {
-    if (receivedMessage !== null && receivedMessage.chatId == chat.id) {
+    if (receivedMessage && receivedMessage.chatId == chat.id) {
+      console.log('DEBUGGGGG', receivedMessage)
       setMessages([...messages, receivedMessage]);
     }
   }, [receivedMessage]);
-
+  
   const scroll = useRef<any>();
   return (
     <>

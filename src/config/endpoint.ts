@@ -22,6 +22,7 @@ export const ENDPOINT = {
     recyclebin: `${RESOURCES.posts}/recyclebin`,
     tags: `${RESOURCES.posts}/tags`,
     draft: `${RESOURCES.posts}/draft`,
+    comments: `${RESOURCES.posts}/comments`
   },
   signatures: {
     index: `${RESOURCES.signatures}`,

@@ -58,6 +58,7 @@ const Chat = () => {
   // Send Message to socket server
   useEffect(() => {
     if (sendMessage) {
+      console.log('senddddd')
       socket.current.emit('send-message', sendMessage);
     }
   }, [sendMessage]);

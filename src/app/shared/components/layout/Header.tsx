@@ -33,7 +33,7 @@ export const Header = () => {
   const user = useSelector((state: RootState) => state.users.data);
   const [sticky, setSticky] = useState<string>('');
   const [isRequestingAPI, setIsRequestingAPI] = useState<boolean>(false);
-  const [currentLang, setCurrentLang] = useState<string>('');
+  const [currentLang, setCurrentLang] = useState<string>('en');
   const [searchInput, setSearchInput] = useState<string>('');
   const { t, i18n } = useTranslation();
   const languageList = ['vi', 'en', 'ja'];
@@ -146,6 +146,12 @@ export const Header = () => {
                     <Link to="/profile/update">
                       <i className="fa-solid fa-file-pen"></i>
                       {t('common.header.update_profile')}
+                    </Link>
+                  </li>
+                  <li className="dropdown-item">
+                    <Link to="/chat">
+                      <i className='bx bxs-chat'></i>
+                      {t('common.header.chat')}
                     </Link>
                   </li>
                   <li className="dropdown-item">

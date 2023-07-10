@@ -13,6 +13,7 @@
     "title_error": "Title should be at least 20 characters.",
     "desc_error": "Description should be at least 50 characters.",
     "content_error": "Content should be at least 100 characters.",
-    "comment_empty": "There are no more posts to show right now."
+    "comment_empty": "There are no more posts to show right now.",
+    "delete_comment_success": "Delete comment successfully."
   }
 }

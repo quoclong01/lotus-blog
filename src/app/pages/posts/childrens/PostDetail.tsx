@@ -23,9 +23,8 @@ const PostDetail = () => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       setLoading(true);
-      const lang = getData(KEYS.I18N_LANG, '');
       postService
-        .getPostsById({ id, lang })
+        .getPostsById({ id })
         .then((res: any) => {
           setIsRequestingAPI(false);
           setPost({ ...post, ...res });

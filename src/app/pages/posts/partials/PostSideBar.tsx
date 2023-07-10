@@ -23,8 +23,6 @@ const PostSideBar = (post: any) => {
   const [loading, setLoading] = useState<any>(false);
   const [isRequestingAPI, setIsRequestingAPI] = useState(false);
   const [authorInfo, setAuthorInfo] = useState<any>({});
-  const token = getData('token', '');
-  const userId = parseJwt(token).userId;
 
   const getPostsRecommend = () => {
     if (!isRequestingAPI) {
@@ -36,7 +34,8 @@ const PostSideBar = (post: any) => {
           setIsRequestingAPI(false);
           setLoading(false);
           if (res.Posts.length) {
-            setPostsRecommend([...res.Posts.slice(-5)]);
+            const data = res.Posts.filter((item: any) => item.id !== post.post.id);
+            setPostsRecommend([...data.slice(-5)]);
           }
         })
         .catch((error) => {
@@ -62,6 +61,11 @@ const PostSideBar = (post: any) => {
   };
 
   const handleChat = async () => {
+    const token = getData('token', '');
+    let userId: any;
+    if (token) {
+      userId = parseJwt(token).userId;
+    }
     const data = {
       senderId: userId.toString(),
       receiverId: post?.post?.user?.id.toString(),

@@ -38,7 +38,7 @@ export class PostService {
   }
 
   getPostsById(data: any) {
-    return this.http.get([`${ENDPOINT.posts.index}/${data.id}${data.lang ? `?lang=${data.lang}` : ''}`]);
+    return this.http.get([`${ENDPOINT.posts.index}/${data.id}`]);
   }
 
   likePostsDetail(id: number) {
@@ -75,5 +75,8 @@ export class PostService {
   }
   saveDraftPost(data: any) {
     return this.http.post([ENDPOINT.posts.draft], data);
+  }
+  deleteComment(id: string | number) {
+    return this.http.delete([`${ENDPOINT.posts.comments}/${id}`]);
   }
 }
