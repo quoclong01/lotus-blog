@@ -99,8 +99,8 @@ const Login = () => {
             <i className="fa-brands fa-google"></i>
             {t('auth.login_with_google')}
           </a>
-          <a href={`${environment.apiBaseUrl}/auth/github?redirect_to=http://localhost:3001/`} className="btn btn-github">
-            <i className="fa-brands fa-github"></i>
+          <a href={`${environment.apiBaseUrl}/auth/github?redirect_to=${window.location.origin}`} className="btn btn-github">
+            <i className="fa-brands fa-gitbhub"></i>
             {t('auth.login_with_github')}
           </a>
         </form>
