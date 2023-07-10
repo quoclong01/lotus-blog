@@ -13,6 +13,7 @@
     "title_error": "Tiêu đề phải có ít nhất 20 ký tự.",
     "desc_error": "Mô tả phải có ít nhất 50 ký tự.",
     "content_error": "Nội dung phải có ít nhất 100 ký tự.",
-    "comment_empty": "Không có nhiều bài viết để hiển thị ngay bây giờ."
+    "comment_empty": "Không có nhiều bài viết để hiển thị ngay bây giờ.",
+    "delete_comment_success": "Xóa bình luận thành công."
   }
 }

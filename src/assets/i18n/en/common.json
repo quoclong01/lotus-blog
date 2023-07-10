@@ -10,7 +10,8 @@
       "welcome": "Welcome to",
       "change_password": "Change Password",
       "draft": "My Draft",
-      "search": "Search posts..."
+      "search": "Search posts...",
+      "chat": "Chat"
     },
     "banner": {
       "title": "Stay curious.",

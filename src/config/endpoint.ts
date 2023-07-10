@@ -3,7 +3,9 @@ const RESOURCES = {
   posts: 'posts',
   signatures: 'signatures',
   friends: 'friends',
-  bookmarks: 'bookmarks'
+  bookmarks: 'bookmarks',
+  chat: 'chat',
+  message: 'message',
 };
 
 export const ENDPOINT = {
@@ -20,6 +22,7 @@ export const ENDPOINT = {
     recyclebin: `${RESOURCES.posts}/recyclebin`,
     tags: `${RESOURCES.posts}/tags`,
     draft: `${RESOURCES.posts}/draft`,
+    comments: `${RESOURCES.posts}/comments`
   },
   signatures: {
     index: `${RESOURCES.signatures}`,
@@ -30,5 +33,12 @@ export const ENDPOINT = {
   },
   bookmarks: {
     index: `${RESOURCES.bookmarks}`
+  },
+  chat: {
+    index: `${RESOURCES.chat}`,
+    find: `${RESOURCES.chat}/find`
+  },
+  message: {
+    index: `${RESOURCES.message}`,
   }
 };

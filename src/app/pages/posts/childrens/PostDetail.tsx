@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { PostService } from '../../../core/serivces/post.service';
-import { KEYS, getData } from '../../../core/helpers/localstorage';
 import PostContent from '../partials/PostContent';
 import PostComment from '../partials/PostComment';
 import PostSideBar from '../partials/PostSideBar';
@@ -23,9 +22,8 @@ const PostDetail = () => {
     if (!isRequestingAPI) {
       setIsRequestingAPI(true);
       setLoading(true);
-      const lang = getData(KEYS.I18N_LANG, '');
       postService
-        .getPostsById({ id, lang })
+        .getPostsById({ id })
         .then((res: any) => {
           setIsRequestingAPI(false);
           setPost({ ...post, ...res });

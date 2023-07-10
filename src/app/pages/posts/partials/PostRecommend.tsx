@@ -33,7 +33,7 @@ const PostRecommend = ({postId}) => {
     getPostsRecommend();
   }, []);
   
-  return isRequestingAPI ? <SekeletonPost /> : (
+  return isRequestingAPI ? <SekeletonPost /> : postsRecommend.length && (
     <section className='post-recommend'>
       <div className="container">
         <h3 className="post-recommend-heading">
